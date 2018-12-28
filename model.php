@@ -1,5 +1,5 @@
 <?php
-    include 'Connection.php';
+    include 'Conection.php';
     $con1=new Connection();
     $con=$con1->mkConnection();
     
