@@ -1,0 +1,43 @@
+body {
+	background: #99c2ff;
+}
+lable {
+	font-family: Georgia;
+	color: white;
+	margin-left: 40%;
+	font-size: 20px;
+}
+
+div.signin {
+	width: 25%;
+	margin-top:15%;
+	margin-left: 35%;
+	background:#3385ff;
+	padding: 1%;
+	
+}
+div.block {
+	width: 25%;
+	margin-left: 35%;
+	background:white;
+	padding: 1%;
+	
+}
+input {
+	padding:2%;
+	font-family:Georgia;
+	font-size:15px;
+	border: none;
+	width:96%;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+button {
+	padding:1%;
+	font-size:20px;
+	width:45%;
+	height:10%;
+	margin-left: 25%;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	}
