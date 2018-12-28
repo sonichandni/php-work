@@ -1,5 +1,5 @@
 <?php
-	include 'conection.php';
+	include 'controler.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,13 +13,13 @@
 	</div>
   <form method="post" role="form"  enctype="multipart/form-data" >
   <div class="block">  
-         <input type="text"  id="nm" name="nm" placeholder="Enter Name" class="form-control" required>
-         <input type="text"  id="nm" name="nm" placeholder="Enter Email Id" class="form-control" required>
-         <input type="text"  id="unm" name="unm" placeholder="Enter Username" class="form-control" required autofocus>
-         <input type="password"  id="pwd" name="pwd" placeholder="Enter password" class="form-control" required>
-         <button type="submit" id="login" name="login" value="submit">Sign Up </button>
-          
+         <input type="text"  id="nm" name="nm" placeholder="Name" class="form-control" required autofocus>
+         <input type="Email"  id="email" name="email" placeholder="Email Id" class="form-control" required>
+         <input type="text"  id="uid" name="uid" placeholder="Username" class="form-control" required>
+         <input type="password"  id="pwd" name="pwd" placeholder="Password" class="form-control" required>
+         <button type="submit" id="signup" name="signup">Sign Up </button><br><br>
+         <small>Already have an account?<a href="index.php">Sign In Here</a></small>
   </div>
-   </form>
+  </form>
 </body>
 </html>
