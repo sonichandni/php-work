@@ -34,7 +34,10 @@ div.left-panel {
 	margin-bottom: 0px;
 }
 i {
-	margin: 0px;
+	padding: 1%;
+	margin-top: -10px;
+	float: right;
+	margin-right: -7px;
 }
 div.footer {
 	width: 100%;
@@ -58,6 +61,7 @@ button.logout-btn {
 	float: right;
 	padding: 1%;
 	margin-top: 10px;
+	margin-right: 10px;
 }
 div.tot_user {
 	width: 15%;
@@ -84,4 +88,13 @@ td {
 	width: 400px;
 	padding: 2%;
 	margin: auto;
+}
+a {
+   text-decoration: none;
+   font-size: 20px;
+   padding: 2%;
+   color: black;
+}
+.fa-user {
+    margin-right: 200px;
 }

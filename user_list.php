@@ -12,10 +12,11 @@
 <form method="post" role="form"  enctype="multipart/form-data" >
   <div class="header">
     <button type="submit" name="logout" id="logout" class="logout-btn"><i class="fa fa-power-off"></i></button>
+    <button type="submit" name="home" id="home" class="logout-btn"><i class="fa fa-home"></i></button>
   </div>
 
   <div class="left-panel">
-    <a href="user_list.php">Users</a>
+    <i class="fa fa-user"></i> <a href="user_list.php?ul='ul'">Users</a>
   </div>
   <div class="center_area">
     <table>

@@ -10,7 +10,6 @@
 		$data=array(
 			"first_name"=>$_REQUEST["fnm"],
 			"last_name"=>$_REQUEST["lnm"],
-			"uid"=>$_REQUEST["uid"],
 			"email"=>$_REQUEST["email"],
 			"pwd"=>$_REQUEST["pwd"],
 			"date_created"=>$dt
@@ -27,10 +26,16 @@
 			"uid"=>$uid,
 			"pwd"=>$pwd,
 		);
-		$res=$md->select($con,"user",$where);
-		if(isset($res))
+		$res=$md->select_where($con,"user",$where);
+		//print_r($res);exit;
+		if($res)
 		{
 			header("location:dashboard.php");
+		}
+		else
+		{
+			echo "<script>alert('Username or Password are incorrect')</script>";
+			//header("location:index.php");
 		}
 	}
 	if(isset($_REQUEST["logout"]))
@@ -42,5 +47,9 @@
 	{
 		$udata=$md->select($con,"user");
 		$_SESSION["udata"]=$udata;
+	}
+	if(isset($_REQUEST["home"]))
+	{
+		header("location:dashboard.php");
 	}
 ?>

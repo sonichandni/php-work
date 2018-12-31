@@ -11,7 +11,8 @@
 <body>
 <form method="post" role="form"  enctype="multipart/form-data" >
   <div class="header">
-    <button type="submit" name="logout" id="logout" class="logout-btn"><i class="fa fa-cloud"></i></button>
+    <button type="submit" name="logout" id="logout" class="logout-btn"><i class="fa fa-power-off"></i></button>
+    <button type="submit" name="home" id="home" class="logout-btn"><i class="fa fa-home"></i></button>
   </div>
 
   <div class="left-panel">
