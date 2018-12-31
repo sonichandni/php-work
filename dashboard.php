@@ -6,11 +6,12 @@
 <head>
   <title>Form</title>
   <link rel="stylesheet" type="text/css" href="./assets/style1.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <form method="post" role="form"  enctype="multipart/form-data" >
   <div class="header">
-    <button type="submit" name="logout" id="logout" class="logout-btn"></button>
+    <button type="submit" name="logout" id="logout" class="logout-btn"><i class="fa fa-cloud"></i></button>
   </div>
 
   <div class="left-panel">

@@ -6,13 +6,17 @@
 
 	if (isset($_REQUEST["signup"]))
 	{
+		$dt=date("Y-m-d");
 		$data=array(
+			"first_name"=>$_REQUEST["fnm"],
+			"last_name"=>$_REQUEST["lnm"],
 			"uid"=>$_REQUEST["uid"],
 			"email"=>$_REQUEST["email"],
-			"uname"=>$_REQUEST["nm"],
-			"pwd"=>$_REQUEST["pwd"]
+			"pwd"=>$_REQUEST["pwd"],
+			"date_created"=>$dt
 		);
 		$md->insert($con,$data,"user");
+		header("location:index.php");
 	}
 	if(isset($_REQUEST["signin"]))
 	{

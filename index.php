@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="signin">  
-    <lable>Sign in</lable>
+    <lable>Sign In</lable>
 	</div>
   <form method="post" role="form"  enctype="multipart/form-data" >
   <div class="block">  

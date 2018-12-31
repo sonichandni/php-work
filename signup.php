@@ -13,10 +13,12 @@
 	</div>
   <form method="post" role="form"  enctype="multipart/form-data" >
   <div class="block">  
-         <input type="text"  id="nm" name="nm" placeholder="Name" class="form-control" required autofocus>
-         <input type="Email"  id="email" name="email" placeholder="Email Id" class="form-control" required>
-         <input type="text"  id="uid" name="uid" placeholder="Username" class="form-control" required>
-         <input type="password"  id="pwd" name="pwd" placeholder="Password" class="form-control" required>
+         <input type="text"  id="fnm" name="fnm" placeholder="First Name" class="form-control" autofocus />
+         <input type="text"  id="lnm" name="lnm" placeholder="Last Name" class="form-control"/>
+         <input type="text"  id="uid" name="uid" placeholder="Username" class="form-control"/>
+         <input type="Email"  id="email" name="email" placeholder="Email Id" class="form-control"/>
+         <input type="password"  id="pwd" name="pwd" placeholder="Password" class="form-control"/>
+         <input type="password"  id="pwd" name="pwd" placeholder="Confirm Password" class="form-control"/>
          <button type="submit" id="signup" name="signup">Sign Up </button><br><br>
          <small>Already have an account?<a href="index.php">Sign In Here</a></small>
   </div>
