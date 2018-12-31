@@ -2,6 +2,7 @@
 	session_start();
 	include 'model.php';
 	$md = new model();
+	$user_cnt=$md->cnt($con,"user");
 
 	if (isset($_REQUEST["signup"]))
 	{
@@ -27,5 +28,15 @@
 		{
 			header("location:dashboard.php");
 		}
+	}
+	if(isset($_REQUEST["logout"]))
+	{
+		session_destroy();
+		header("location:index.php");
+	}
+	if(isset($_REQUEST["ul"]))
+	{
+		$udata=$md->select($con,"user");
+		$_SESSION["udata"]=$udata;
 	}
 ?>

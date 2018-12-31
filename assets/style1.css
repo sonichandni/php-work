@@ -1,0 +1,88 @@
+body {
+	background: #ffcce6;
+}
+lable {
+	font-family: Georgia;
+	color: white;
+	margin-left: 40%;
+	font-size: 20px;
+}
+input {
+	padding:2%;
+	font-family:Georgia;
+	font-size:15px;
+	border: none;
+	width:96%;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+button {
+	padding:1%;
+	font-size:20px;
+	width:45%;
+	height:10%;
+	margin-left: 25%;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+div.header {
+	width: 100%;
+	height: 50px;
+	background: #8080ff;
+}
+div.left-panel {
+	width: 270px;
+	height: 536px;
+	background: #ff6666;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+div.footer {
+	width: 100%;
+	height: 50px;
+	background: #8080ff;
+	margin-top: 0px;
+	margin-bottom: 0px; 
+}
+div.center_area {
+	width: 79%;
+	height: 522px;
+	background: white;
+	margin-top: -530px;
+	margin-left: 280px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+button.logout-btn {
+	width: 20px;
+	border-radius: 10px;
+	float: right;
+	padding: 1%;
+	margin-top: 10px;
+}
+div.tot_user {
+	width: 15%;
+	height: 75px;
+	background: orange;
+	border-radius: 5px;
+	padding: 30px;
+}
+table {
+	padding: 1%;
+	margin:auto;
+}
+thead {
+	margin: auto;
+	background: #80b3ff;
+	
+}
+th {
+	width: 400px;
+	padding: 2%;
+	margin: auto;
+}
+td {
+	width: 400px;
+	padding: 2%;
+	margin: auto;
+}
