@@ -19,14 +19,15 @@
 	}
 	if(isset($_REQUEST["signin"]))
 	{
-		$uid=$_REQUEST["uid"];
+		$uid=$_REQUEST["email"];
 		$pwd=$_REQUEST["pwd"];
 
 		$where=array(
-			"uid"=>$uid,
+			"email"=>$uid,
 			"pwd"=>$pwd,
 		);
 		$res=$md->select_where($con,"user",$where);
+		$_SESSION["logged"]=$res;
 		//print_r($res);exit;
 		if($res)
 		{

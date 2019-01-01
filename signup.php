@@ -44,11 +44,7 @@
         alert("Password and Confirm Password must match");
         return false;
       }
-      if(!pwd.length>8)
-      {
-        alert('l');
-        return false;
-      }
+      
       
     }
   </script>
@@ -61,9 +57,9 @@
   <div class="block">  
          <input type="text"  id="fnm" name="fnm" placeholder="First Name" class="form-control" autofocus />
          <input type="text"  id="lnm" name="lnm" placeholder="Last Name" class="form-control"/>
-         <input type="text"  id="email" name="email" placeholder="Email Id" class="form-control"/>
-         <input type="password"  id="pwd" name="pwd" placeholder="Password" class="form-control"/>
-         <input type="password"  id="cpwd" name="cpwd" placeholder="Confirm Password" class="form-control"/>
+         <input type="text"  id="email" name="email" placeholder="Email Id" pattern="\b[A-Za-z0-9_\-\.]+@[A-Za-z0-9_\-\.]+\.[A-Za-z]{2,4}\b" title="example@gmail.com" class="form-control"/>
+         <input type="password"  id="pwd" name="pwd" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain minimum one symbol, one capital letter and one number" class="form-control"/>
+         <input type="password"  id="cpwd" name="cpwd" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain minimum one symbol, one capital letter and one number" class="form-control"/>
          <button type="submit" id="signup" name="signup" onclick="return valid()">Sign Up </button><br><br>
          <small>Already have an account?<a href="index.php">Sign In Here</a></small>
   </div>

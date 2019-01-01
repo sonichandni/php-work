@@ -29,7 +29,7 @@
   <form method="post" role="form"  enctype="multipart/form-data" >
   <div class="block">  
        
-         <input type="text"  id="uid" name="uid" placeholder="Username" class="form-control" autofocus>
+         <input type="text"  id="email" name="email" placeholder="Username" class="form-control" autofocus>
          <input type="password"  id="pwd" name="pwd" placeholder="Password" class="form-control">
          <button type="submit" id="signin" name="signin" value="submit" onclick="return valid()">Sign In </button><br><br>
          <small>Not Registered Yet?<a href="signup.php">Sign Up Here</a></small>
