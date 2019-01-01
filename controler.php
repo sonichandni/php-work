@@ -4,6 +4,26 @@
 	$md = new model();
 	$user_cnt=$md->cnt($con,"user");
 
+	class user
+	{
+
+		function getAllUser()
+		{
+			$con1=new Connection();
+    		$con=$con1->mkConnection();
+			$q="select * from user";
+            $res=$con->query($q);
+            if($res)
+            {
+	            while($row=$res->fetch_object())
+	            {
+	                $udata[]=$row;
+	            }
+	            if(isset($udata))
+	                return $udata;
+        	}
+		}
+	}
 	//Sign up
 	if (isset($_REQUEST["signup"]))
 	{
@@ -101,12 +121,6 @@
 	{
 		session_destroy();
 		header("location:index.php");
-	}
-	//get user data
-	if(isset($_REQUEST["ul"]))
-	{
-		$udata=$md->select($con,"user");
-		$_SESSION["udata"]=$udata;
 	}
 	//redirect to home page i.e., dashboard
 	if(isset($_REQUEST["home"]))

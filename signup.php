@@ -15,7 +15,7 @@
   <div class="signin">  
     <lable>Sign Up</lable>
 	</div>
-  <form method="post">
+  <form method="post" name="signup_form" id="signup_form">
   <div class="block">  
          <input type="text"  id="fnm" name="fnm" placeholder="First Name" <?php if(isset($errorCode) && $errorCode == 1){echo "class=errorMsg" ;} ?> value="<?php if(isset($fnm)) { echo $fnm; } ?>" autofocus />
 
@@ -27,9 +27,10 @@
 
          <input type="password"  id="cpwd" name="cpwd" placeholder="Confirm Password" <?php if(isset($errorCode) && $errorCode == 5){echo "class=errorMsg" ;} ?> value="<?php if(isset($cpwd)) { echo $cpwd; } ?>" />
 
-         <button type="submit" id="signup" name="signup">Sign Up </button><br><br>
+         <button type="submit" id="signup"name="signup">Sign Up </button><br><br>
          <small>Already have an account?<a href="index.php">Sign In Here</a></small>
   </div>
   </form>
+
 </body>
 </html>

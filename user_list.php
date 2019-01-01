@@ -30,9 +30,11 @@
       </thead>
       <tbody>
       <?php
-        if(isset($_SESSION["udata"]))
+      $ud=new user();
+      $udata=$ud->getAllUser();
+        if(isset($udata))
         {
-          foreach ($_SESSION["udata"] as $v) {
+          foreach ($udata as $v) {
             ?>
             <tr>
               <td><?php echo $v->first_name." ".$v->last_name; ?></td>
