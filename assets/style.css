@@ -10,11 +10,16 @@ lable {
 
 div.signin {
 	width: 25%;
-	margin-top:10%;
+	margin-top:0%;
 	margin-left: 35%;
 	background:#3385ff;
 	padding: 1%;
 	
+}
+div.errorM {
+	width: 25%;
+	margin-top:10%;
+	margin-left: 35%;
 }
 div.block {
 	width: 25%;
@@ -40,4 +45,11 @@ button {
 	margin-left: 25%;
 	margin-top: 2px;
 	margin-bottom: 2px;
+}
+.errorMsg{
+	border:1px solid red; 
+}
+.message{
+	color: red;
+	font-weight:bold; 
 }
