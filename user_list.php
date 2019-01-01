@@ -37,9 +37,9 @@
           foreach ($udata as $v) {
             ?>
             <tr>
-              <td><?php echo $v->first_name." ".$v->last_name; ?></td>
-              <td><?php echo $v->email; ?></td>
-              <td><?php echo $v->date_created; ?></td>
+              <td><?php echo $v['first_name']." ".$v['last_name']; ?></td>
+              <td><?php echo $v['email']; ?></td>
+              <td><?php echo $v['date_created']; ?></td>
             </tr>
             <?php
           }

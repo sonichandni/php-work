@@ -15,12 +15,7 @@
             $res=$con->query($q);
             if($res)
             {
-	            while($row=$res->fetch_object())
-	            {
-	                $udata[]=$row;
-	            }
-	            if(isset($udata))
-	                return $udata;
+	            return $row = mysqli_fetch_all($res,MYSQLI_ASSOC);
         	}
 		}
 	}
