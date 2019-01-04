@@ -5,50 +5,45 @@
 <html>
 <head>
 	<title>Form</title>
-  <link rel="stylesheet" type="text/css" href="./assets/style.css">
-   <script type="text/javascript">
-    function valid(){
-      var fnm=document.getElementById('fnm').value;
-      var lnm=document.getElementById('lnm').value;
-      var email=document.getElementById('email').value;
-      var pwd=document.getElementById('pwd').value;
-      var cpwd=document.getElementById('cpwd').value;
-      if (fnm=='') {
-        document.getElementById("er_msg_js").innerHTML = "*Please Enter First Name";
-        document.getElementById("fnm").style.border = "1px solid red";
-        return false;
-      }
-      else if (lnm=='') {
-        document.getElementById("er_msg_js").innerHTML = "*Please Enter the Last Name";
-        document.getElementById("lnm").style.border = "1px solid red";
-        return false;
-      }
-      else if (email=='') {
-        document.getElementById("er_msg_js").innerHTML = "*Please Enter Email";
-        document.getElementById("email").style.border = "1px solid red";
-        return false;
-      }
-      else if (pwd=='') {
-        document.getElementById("er_msg_js").innerHTML = "*Please Enter Password";
-        document.getElementById("pwd").style.border = "1px solid red";
-        return false;
-      }
-      else if (cpwd=='') {
-        document.getElementById("er_msg_js").innerHTML = "*Please Confirm Your Password";
-        document.getElementById("cpwd").style.border = "1px solid red";
-        return false;
-      }
-      else if (pwd!=cpwd) {
-        document.getElementById("er_msg_js").innerHTML = "*Password and Confirm Password must match";
-        return false;
-      }
-      else
-      {
-        return true;
-      }
-      
-      
-    }
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/screen.css">
+  <script src="./assets/js/jquery-3.3.1.min.js"></script>
+  <script src="./assets/js/jquery.js"></script>
+  <script src="./assets/js/jquery.validate.js"></script>
+  <script>
+    $.validator.addMethod("pwcheck", function(value) {
+    return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+       && /[a-z]/.test(value) // has a lowercase letter
+       && /\d/.test(value) // has a digit
+      });
+    $().ready(function(){
+      $("#signupForm").validate({
+        rules: {
+          fnm: "required",
+          lnm: "required",
+          email: {
+            required: true,
+            email: true
+          },
+          pwd: {
+            required: true,
+            minlength: 8,
+            pwcheck: true
+          },
+          cpwd: {
+            required: true,
+            equalTo: "#pwd"
+          }
+        },
+        messages: {
+          fnm: "Please Enter First name",
+          lnm: "Please Enter Last name",
+          email: "Please Enter email in Proper Format",
+          pwd: "Please Enter Password in Proper Format",
+          cpwd: "Please confirm your Password"
+        }
+      });
+    });
   </script>
 </head>
 <body>
@@ -60,7 +55,7 @@
   <div class="signin">  
     <lable>Sign Up</lable>
 	</div>
-  <form method="post" name="signup_form" id="signup_form">
+  <form method="post" name="signupForm" id="signupForm">
   <div class="block">  
          <input type="text"  id="fnm" name="fnm" placeholder="First Name" <?php if(isset($errorCode) && $errorCode == 1){echo "class=errorMsg" ;} ?> value="<?php if(isset($fnm)) { echo $fnm; } ?>" autofocus />
 
