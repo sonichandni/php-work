@@ -78,10 +78,11 @@
 		}
 	}
 	//Sign in
-	if(isset($_REQUEST["signin"]))
+	if(isset($_POST['login']))
 	{
-		$uid=$_REQUEST["email"];
-		$pwd=$_REQUEST["pwd"];
+		//echo $_POST['email'];exit;
+		$uid=$_POST['email'];
+		$pwd=$_POST['pwd'];
 		if($uid=='')
 		{
 			$errorMsg="*Please Enter Email id";
@@ -100,14 +101,15 @@
 			);
 			$res=$md->select_where($con,"user",$where);
 			$_SESSION["logged"]=$res;
-			//print_r($res);exit;
+			print_r($res);exit;
 			if($res)
 			{
-				header("location:dashboard.php");
+				echo "succes";
 			}
 			else
 			{
 				$errorMsg="*Please Enter Correct Email id or/and Password";
+				echo "fail";
 			}
 		}
 	}

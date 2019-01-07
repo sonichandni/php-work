@@ -7,7 +7,7 @@
 	<title>Form</title>
   <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/screen.css">
-  <script src="./assets/js/jquery-3.3.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="./assets/js/jquery.js"></script>
   <script src="./assets/js/jquery.validate.js"></script>
   <script>
@@ -29,6 +29,34 @@
     });
   });
 </script>
+<script>
+  $(document).ready(function(){
+    $("#signin").click(function(event){
+      //alert("hi");
+      var email = $('email').val();
+      //alert(email);
+      var pwd = $('pwd').val();
+      $.ajax({
+        url: 'controler.php',
+        type: 'POST',
+        data: {login : "hi",email : emial,pwd :pwd},
+        success: function(response)
+        {
+          //alert(response);
+          if(response == "success")
+          {
+            alert(response);
+            windows.location.href = "dashboard.php";
+          }
+        },
+        error:function()
+        {
+          alert("wrong details");
+        }
+      });
+    });
+  });
+</script>
 </head>
 <body>
   <div class="errorM">
@@ -43,7 +71,7 @@
          
            <input type="text"  id="email" name="email" placeholder="Email Id" <?php if(isset($errorCode) && $errorCode==1){ echo "class=errorMsg"; } ?> value="<?php if(isset($uid)) { echo $uid; } ?>" autofocus>
            <input type="password"  id="pwd" name="pwd" placeholder="Password" <?php if(isset($errorCode) && $errorCode==2){ echo "class=errorMsg"; } ?>>
-           <button type="submit" id="signin" name="signin" value="submit">Sign In </button><br><br>
+           <button type="button" id="signin" name="signin" value="submit">Sign In </button><br><br>
            <small>Not Registered Yet?<a href="signup.php">Sign Up Here</a></small>
     </div>
   </form>
