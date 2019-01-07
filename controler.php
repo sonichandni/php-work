@@ -22,6 +22,7 @@
 	//Sign up
 	if (isset($_REQUEST["signup"]))
 	{
+		//echo $_REQUEST["signup"];exit;
 		$fnm=$_REQUEST["fnm"];
 		$lnm=$_REQUEST["lnm"];
 		$email=$_REQUEST["email"];
@@ -74,7 +75,7 @@
 				"date_created"=>$dt
 			);
 			$md->insert($con,$data,"user");
-			header("location:index.php");
+			echo "success";
 		}
 	}
 	//Sign in

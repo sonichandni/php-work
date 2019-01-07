@@ -7,7 +7,7 @@
 	<title>Form</title>
   <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/screen.css">
-  <script src="./assets/js/jquery-3.3.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="./assets/js/jquery.js"></script>
   <script src="./assets/js/jquery.validate.js"></script>
   <script>
@@ -45,6 +45,33 @@
       });
     });
   </script>
+  <script>
+    $(document).ready(function(){
+    $("#signup").click(function(event){
+      var fnm = $('#fnm').val();
+      var lnm = $('#lnm').val();
+      var email = $('#email').val();
+      var pwd = $('#pwd').val();
+      var cpwd = $('#cpwd').val();
+      $.ajax({
+        url: 'controler.php',
+        type: 'POST',
+        data: {signup : "signup",fnm : fnm, lnm : lnm, email : email, pwd :pwd, cpwd: cpwd},
+        success: function(response)
+        {
+          if(response == "success")
+          {
+            window.location.href = "index.php";
+          }
+          else
+          {
+            $('#er_msg_js').html(response);
+          }
+        }
+      });
+    });
+  });
+  </script>
 </head>
 <body>
   <div class="errorM">
@@ -67,7 +94,7 @@
 
          <input type="password"  id="cpwd" name="cpwd" placeholder="Confirm Password" <?php if(isset($errorCode) && $errorCode == 5){echo "class=errorMsg" ;} ?> value="<?php if(isset($cpwd)) { echo $cpwd; } ?>" />
 
-         <button type="submit" id="signup"name="signup" onclick="return valid()">Sign Up </button><br><br>
+         <button type="button" id="signup"name="signup">Sign Up </button><br><br>
          <small>Already have an account?<a href="index.php">Sign In Here</a></small>
   </div>
   </form>
