@@ -33,25 +33,25 @@
   $(document).ready(function(){
     $("#signin").click(function(event){
       //alert("hi");
-      var email = $('email').val();
+      var email = $('#email').val();
       //alert(email);
-      var pwd = $('pwd').val();
+      var pwd = $('#pwd').val();
       $.ajax({
         url: 'controler.php',
         type: 'POST',
-        data: {login : "hi",email : emial,pwd :pwd},
+        data: {login : "hi",email : email,pwd :pwd},
         success: function(response)
         {
           //alert(response);
           if(response == "success")
           {
-            alert(response);
-            windows.location.href = "dashboard.php";
+            //alert(response);
+            window.location.href = "dashboard.php";
           }
-        },
-        error:function()
-        {
-          alert("wrong details");
+          else
+          {
+            $('#er_msg_js').html(response);
+          }
         }
       });
     });

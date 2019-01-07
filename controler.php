@@ -80,7 +80,7 @@
 	//Sign in
 	if(isset($_POST['login']))
 	{
-		//echo $_POST['email'];exit;
+		//echo $_POST['email']." ".$_POST['pwd'];exit;
 		$uid=$_POST['email'];
 		$pwd=$_POST['pwd'];
 		if($uid=='')
@@ -101,15 +101,15 @@
 			);
 			$res=$md->select_where($con,"user",$where);
 			$_SESSION["logged"]=$res;
-			print_r($res);exit;
+			//print_r($res);exit;
 			if($res)
 			{
-				echo "succes";
+				echo "success";
 			}
 			else
 			{
 				$errorMsg="*Please Enter Correct Email id or/and Password";
-				echo "fail";
+				echo $errorMsg;
 			}
 		}
 	}

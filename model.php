@@ -24,7 +24,7 @@
             {
                 $q.=" and $k='$v'";
             }
-            echo $q;exit;
+            //echo $q;exit;
             $all1=$con->query($q);
             
             while($row=$all1->fetch_object())
