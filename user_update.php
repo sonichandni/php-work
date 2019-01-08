@@ -19,7 +19,7 @@
   </div>
 
   <div class="left-panel">
-    <a href="user_list.php">Users</a>
+    <?php include "left_panel.php" ?>
   </div>
   <div class="center_area">
     <form method="post" name="user_up" id="user_up">
@@ -33,7 +33,7 @@
 
          <input type="password"  id="pwd" name="pwd" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain minimum one symbol, one capital letter and one number" value="<?php foreach($sel_user_data as $s){if(isset($s->pwd)) { echo $s->pwd; }} ?>" />
 
-         <input type="password"  id="cpwd" name="cpwd" placeholder="Confirm Password"  value="<?php foreach($sel_user_data as $s){if(isset($s->pwd)) { echo $s->pwd; }}  ?>" />
+         <input type="password"  id="cpwd" name="cpwd" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain minimum one symbol, one capital letter and one number"  value="<?php foreach($sel_user_data as $s){if(isset($s->pwd)) { echo $s->pwd; }}  ?>" />
 
          <center><button type="submit" id="update_u" name="update_u">Update </button><br><br></center>
          

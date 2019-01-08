@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2019 at 12:12 PM
+-- Generation Time: Jan 08, 2019 at 10:40 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -33,6 +33,7 @@ CREATE TABLE `user` (
   `first_name` char(30) NOT NULL,
   `last_name` char(30) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `profile_pic` varchar(50) NOT NULL,
   `pwd` varchar(20) NOT NULL,
   `date_created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -41,13 +42,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uid`, `first_name`, `last_name`, `email`, `pwd`, `date_created`) VALUES
-(1, 'wdsqw', 'jhjh', 'hho@gmaik.com', '123', '2018-12-31'),
-(2, 'Chandni', 'Soni', 'chandni@gmail.cpo', 'sacs', '0000-00-00'),
-(3, 'Diya', 'Soni', 'soni.chandni.415@gmail.com', 'chandni', '0000-00-00'),
-(4, 'Maya', 'Khanna', 'maya@gmail.com', 'maya1', '2018-12-31'),
-(10, 'wfewfweff', 'eff', 'qfqfe@gmail.wd', 'Chandni!11', '2019-01-01'),
-(11, 'Chandni', 'Soni', 'aaf@gmail.com', 'Chandni@22', '2019-01-01');
+INSERT INTO `user` (`uid`, `first_name`, `last_name`, `email`, `profile_pic`, `pwd`, `date_created`) VALUES
+(1, 'wdsqw', 'jhjh', 'hho@gmaik.com', '', '123', '2018-12-31'),
+(2, 'Chandni V.', 'Soni', 'cs@gmail.com', 'sm.png', 'Chandni!11', '0000-00-00'),
+(3, 'Diya', 'Soni', 'soni.chandni.415@gmail.com', '', 'Chandni@2', '0000-00-00'),
+(4, 'Maya', 'Khanna', 'maya@gmail.com', '', 'maya1', '2018-12-31');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +66,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

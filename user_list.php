@@ -19,7 +19,7 @@
   </div>
 
   <div class="left-panel">
-    <a href="user_list.php">Users</a>
+    <?php include "left_panel.php" ?>
   </div>
   <div class="center_area">
     <table>

@@ -117,7 +117,7 @@
 			}
 		}
 	}
-	//------------------Edit user profile----------------
+	//------------------Edit users details----------------
 	//fetch user data to update
 	if(isset($_REQUEST["user_update"]))
 	{
@@ -151,6 +151,42 @@
 		$md->updt($con,"user",$set,$where);
 		header("location:user_list.php");
 
+	}
+	//edit current logged in user's profile
+	if(isset($_REQUEST["profile_pic_upload"]))
+	{
+		$uid=$_REQUEST["uid"];
+		$fnm=$_REQUEST["fnm"];
+		$lnm=$_REQUEST["lnm"];
+		$email=$_REQUEST["email"];
+		$pwd=$_REQUEST["pwd"];
+		$cpwd=$_REQUEST["cpwd"];
+		$dp=$_FILES["dp"]["name"];
+		$filename1=explode(".",$dp);
+        $ext= end($filename1);
+        $php_path= $_FILES["dp"]["tmp_name"];
+        $path= "user_images/$dp";
+        if($ext=='jpg' || $ext=='jpeg' || $ext=='png')
+		{
+            move_uploaded_file($php_path,$path);
+            $set = array(
+            	"first_name"=>$_REQUEST["fnm"],
+				"last_name"=>$_REQUEST["lnm"],
+				"email"=>$_REQUEST["email"],
+				"pwd"=>$_REQUEST["pwd"],
+            	"profile_pic"=>$dp
+            );
+            $where = array(
+            	"uid"=>$uid
+            );
+            $md->updt($con,"user",$set,$where);
+            $res=$md->select_where($con,"user",$where);
+			$_SESSION["logged"]=$res;
+        }
+		else
+		{
+			echo "<script>alert('invalid file..try again');</script>";
+		}
 	}
 	//Delete user
 	if(isset($_REQUEST["user_delete"]))

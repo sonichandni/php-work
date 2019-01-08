@@ -122,3 +122,8 @@ a {
 	margin-right: 12px;
 	margin-top: 2px;
 }
+img {
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+}
