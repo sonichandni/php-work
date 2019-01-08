@@ -11,8 +11,11 @@
 		{
 			$con1=new Connection();
     		$con=$con1->mkConnection();
-			$q="select * from user";
-            $res=$con->query($q);
+    		foreach ($_SESSION["logged"] as $k) {
+    			$cid=$k->uid;
+    		}
+			$q="SELECT * FROM user WHERE uid NOT IN ($cid)";
+			$res=$con->query($q);
             if($res)
             {
 	            return $row = mysqli_fetch_all($res,MYSQLI_ASSOC);
@@ -113,6 +116,50 @@
 				echo $errorMsg;
 			}
 		}
+	}
+	//------------------Edit user profile----------------
+	//fetch user data to update
+	if(isset($_REQUEST["user_update"]))
+	{
+		$uid=$_REQUEST["user_update"];
+		$where = array(
+			"uid"=>$uid
+		);
+		$sel_user_data=$md->select_where($con,"user",$where);
+	}
+	//upadte user
+	if(isset($_REQUEST["update_u"]))
+	{
+		$uid=$_REQUEST["uid"];
+		$fnm=$_REQUEST["fnm"];
+		$lnm=$_REQUEST["lnm"];
+		$email=$_REQUEST["email"];
+		$pwd=$_REQUEST["pwd"];
+		$cpwd=$_REQUEST["cpwd"];
+
+		$set=array(
+			"first_name"=>$_REQUEST["fnm"],
+			"last_name"=>$_REQUEST["lnm"],
+			"email"=>$_REQUEST["email"],
+			"pwd"=>$_REQUEST["pwd"]
+		);
+
+		$where = array(
+			"uid"=>$uid
+		);
+
+		$md->updt($con,"user",$set,$where);
+		header("location:user_list.php");
+
+	}
+	//Delete user
+	if(isset($_REQUEST["user_delete"]))
+	{
+		$uid=$_REQUEST["user_delete"];
+		$where = array(
+			"uid"=>$uid
+		);
+		$md->dlt($con,"user",$where);
 	}
 	//Logout
 	if(isset($_REQUEST["logout"]))

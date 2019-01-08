@@ -19,7 +19,7 @@
   </div>
 
   <div class="left-panel">
-    <a href="user_list.php?ul='ul'">Users</a>
+    <a href="user_list.php">Users</a>
   </div>
   <div class="center_area">
     <div class="tot_user">

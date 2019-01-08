@@ -54,5 +54,32 @@
             
             return $no;
         }
+        function dlt($con,$table,$where)
+        {
+            $q="DELETE FROM $table WHERE 1=1";
+            foreach ($where as $k => $v)
+            {
+                $q.=" AND $k='$v'";
+            }
+            //echo $q;exit;
+            return $con->query($q);
+        }
+        function updt($con,$table,$set,$where)
+        {
+            $q="update $table set ";
+            foreach($set as $k=>$v)
+            {
+                $q.="$k='$v',";
+            }
+            $q=rtrim($q,",");
+            $q.=" where 1=1";
+            foreach($where as $m=>$n)
+            {
+                $q.=" and $m='$n'";
+            }
+            
+            //echo $q;exit;
+            $con->query($q);
+        }
     }
 ?>

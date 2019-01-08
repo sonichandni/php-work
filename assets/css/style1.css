@@ -98,3 +98,27 @@ a {
 .fa-user {
     margin-right: 200px;
 }
+.btn-circle-success {
+	border-radius:50px;
+	width:50px;
+	height:50px;
+	padding: 0px;
+	margin: 0px;
+	background: green;
+}
+.btn-circle-danger {
+	border-radius:50px;
+	width:50px;
+	height:50px;
+	padding: 0px;
+	margin: 0px;
+	background: red;
+}
+.fa-pencil {
+	margin-right: 9px;
+	margin-top: 2px;
+}
+.fa-trash {
+	margin-right: 12px;
+	margin-top: 2px;
+}
