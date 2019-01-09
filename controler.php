@@ -4,7 +4,7 @@
 	$md = new model();
 	$user_cnt=$md->cnt($con,"user");
 
-	class user
+	class getData
 	{
 
 		function getAllUser()
@@ -15,6 +15,17 @@
     			$cid=$k->uid;
     		}
 			$q="SELECT * FROM user WHERE uid NOT IN ($cid)";
+			$res=$con->query($q);
+            if($res)
+            {
+	            return $row = mysqli_fetch_all($res,MYSQLI_ASSOC);
+        	}
+		}
+		function getAllProducts()
+		{
+			$con1=new Connection();
+    		$con=$con1->mkConnection();
+    		$q="SELECT * FROM product";
 			$res=$con->query($q);
             if($res)
             {
@@ -117,7 +128,7 @@
 			}
 		}
 	}
-	//------------------Edit users details----------------
+	//------------------Edit users details start----------------
 	//fetch user data to update
 	if(isset($_REQUEST["user_update"]))
 	{
@@ -125,7 +136,8 @@
 		$where = array(
 			"uid"=>$uid
 		);
-		$sel_user_data=$md->select_where($con,"user",$where);
+		$sel_user=$md->select_where($con,"user",$where);
+		$sel_user_data = $sel_user[0];
 	}
 	//upadte user
 	if(isset($_REQUEST["update_u"]))
@@ -162,30 +174,33 @@
 		$pwd=$_REQUEST["pwd"];
 		$cpwd=$_REQUEST["cpwd"];
 		$dp=$_FILES["dp"]["name"];
-		$filename1=explode(".",$dp);
-        $ext= end($filename1);
-        $php_path= $_FILES["dp"]["tmp_name"];
-        $path= "user_images/$dp";
-        if($ext=='jpg' || $ext=='jpeg' || $ext=='png')
+		if(isset($dp))
 		{
-            move_uploaded_file($php_path,$path);
-            $set = array(
-            	"first_name"=>$_REQUEST["fnm"],
-				"last_name"=>$_REQUEST["lnm"],
-				"email"=>$_REQUEST["email"],
-				"pwd"=>$_REQUEST["pwd"],
-            	"profile_pic"=>$dp
-            );
-            $where = array(
-            	"uid"=>$uid
-            );
-            $md->updt($con,"user",$set,$where);
-            $res=$md->select_where($con,"user",$where);
-			$_SESSION["logged"]=$res;
-        }
-		else
-		{
-			echo "<script>alert('invalid file..try again');</script>";
+			$filename1=explode(".",$dp);
+	        $ext= end($filename1);
+	        $php_path= $_FILES["dp"]["tmp_name"];
+	        $path= "user_images/$dp";
+	        if($ext=='jpg' || $ext=='jpeg' || $ext=='png')
+			{
+	            move_uploaded_file($php_path,$path);
+	            $set = array(
+	            	"first_name"=>$_REQUEST["fnm"],
+					"last_name"=>$_REQUEST["lnm"],
+					"email"=>$_REQUEST["email"],
+					"pwd"=>$_REQUEST["pwd"],
+	            	"profile_pic"=>$dp
+	            );
+	            $where = array(
+	            	"uid"=>$uid
+	            );
+	            $md->updt($con,"user",$set,$where);
+	            $res=$md->select_where($con,"user",$where);
+				$_SESSION["logged"]=$res;
+	        }
+			else
+			{
+				echo "<script>alert('invalid file..try again');</script>";
+			}
 		}
 	}
 	//Delete user
@@ -197,6 +212,83 @@
 		);
 		$md->dlt($con,"user",$where);
 	}
+	//------------------Edit users details end----------------
+
+	//------------------Product Department start--------------
+	if(isset($_REQUEST["add_product_pg"]))
+	{
+		header("location:product_add.php");
+	}
+	if(isset($_REQUEST["view_product_pg"]))
+	{
+		header("location:product_list.php");
+	}
+	if(isset($_REQUEST["add_product_db"]))
+	{
+		$pnm = $_REQUEST["pnm"];
+		$pimg=$_FILES["pimg"]["name"];
+		$filename1=explode(".",$pimg);
+	        $ext= end($filename1);
+	        $php_path= $_FILES["pimg"]["tmp_name"];
+	        $path= "prod_images/$pimg";
+	        if($ext=='jpg' || $ext=='jpeg' || $ext=='png')
+			{
+	            move_uploaded_file($php_path,$path);
+	            $stu = array(
+	            	"pname"=>$pnm,
+	            	"pimg"=>$pimg
+	            );
+	            $md->insert($con,$stu,"product");
+	        }
+			else
+			{
+				echo "<script>alert('invalid file..try again');</script>";
+			}
+	}
+	if (isset($_REQUEST["pid"]))
+	{
+		$pid=$_REQUEST["pid"];
+		$where = array(
+			"pid"=>$pid
+		);
+		$sel_prod=$md->select_where($con,"product",$where);
+		$sel_prod_data = $sel_prod[0];
+		foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    	}
+    	$where = array(
+    		"uid"=>$cid,
+    		"pid"=>$pid,
+    	);
+    	$prod_comm=$md->select_where($con,"comments",$where);
+	}
+	//add comment
+	if(isset($_REQUEST["add_comment"]))
+	{
+		$pid=$_REQUEST["pid"];
+		$uid=$_REQUEST["uid"];
+		$com=$_REQUEST["com"];
+		$stu=array(
+			"comm"=>$com,
+			"uid"=>$uid,
+			"pid"=>$pid
+		);
+		$md->insert($con,$stu,"comments");
+		header("location:product_list.php");
+	}
+	//view all comments
+	if(isset($_REQUEST["comments_view"]))
+	{
+		$pid=$_REQUEST["comments_view"];
+		//echo $pid;exit;
+		$where=array(
+			"pid"=>$pid
+		);
+		$str="comments.uid=user.uid";
+		$com_data=$md->join_con($con,"user","comments",$str,$where);
+	}
+	//------------------Product Department end----------------
 	//Logout
 	if(isset($_REQUEST["logout"]))
 	{

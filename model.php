@@ -81,5 +81,28 @@
             //echo $q;exit;
             $con->query($q);
         }
+        function join_con($con,$tbl1,$tbl2,$str,$where)
+        {
+            $q="select * from `$tbl2` INNER JOIN `$tbl1` ON $str where 1=1";
+            
+            foreach($where as $k=>$v)
+            {
+                $q.=" and $k='$v'";
+            }
+            $al=$con->query($q);
+            //echo $q;exit;
+            if($al->num_rows!=0)
+            {
+                while($row=$al->fetch_object())
+                {
+                    $r[]=$row;
+                }
+                if(isset($r))
+                {
+                    return $r;
+                }
+            }
+            
+        }
     }
 ?>
