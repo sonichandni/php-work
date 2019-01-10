@@ -104,5 +104,29 @@
             }
             
         }
+        function join_con_order($con,$tbl1,$tbl2,$str,$where,$c)
+        {
+            $q="select * from `$tbl2` INNER JOIN `$tbl1` ON $str where 1=1";
+            
+            foreach($where as $k=>$v)
+            {
+                $q.=" and $k='$v'";
+            }
+            $q=$q." ORDER BY $c DESC";
+            $al=$con->query($q);
+            //echo $q;exit;
+            if($al->num_rows!=0)
+            {
+                while($row=$al->fetch_object())
+                {
+                    $r[]=$row;
+                }
+                if(isset($r))
+                {
+                    return $r;
+                }
+            }
+            
+        }
     }
 ?>

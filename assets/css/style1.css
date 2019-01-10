@@ -16,6 +16,15 @@ input {
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
+textarea {
+	padding:2%;
+	font-family:Georgia;
+	font-size:15px;
+	border: none;
+	width:96%;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
 button {
 	font-size:20px;
 	width:45%;
@@ -55,6 +64,7 @@ div.center_area {
 	margin-bottom: 0px;
 	border-radius: 5px;
 	padding: 10px;
+	overflow: scroll;
 }
 button.logout-btn {
 	width: 20px;
@@ -131,4 +141,7 @@ img {
 .prod-img {
 	width: 200px;
 	height: 300px;
+}
+::-webkit-scrollbar {
+  width: 1px;
 }

@@ -3,7 +3,7 @@
 	include 'model.php';
 	$md = new model();
 	$user_cnt=$md->cnt($con,"user");
-
+	date_default_timezone_set("Asia/Kolkata");
 	class getData
 	{
 
@@ -235,6 +235,7 @@
 	if(isset($_REQUEST["add_product_db"]))
 	{
 		$pnm = $_REQUEST["pnm"];
+		$pdisc = $_REQUEST["pdisc"];
 		$pimg=$_FILES["pimg"]["name"];
 		$filename1=explode(".",$pimg);
 	        $ext= end($filename1);
@@ -245,7 +246,8 @@
 	            move_uploaded_file($php_path,$path);
 	            $stu = array(
 	            	"pname"=>$pnm,
-	            	"pimg"=>$pimg
+	            	"pimg"=>$pimg,
+	            	"prod_disc"=>$pdisc
 	            );
 	            $md->insert($con,$stu,"product");
 	        }
@@ -278,11 +280,14 @@
 		$pid=$_REQUEST["pid"];
 		$uid=$_REQUEST["uid"];
 		$com=$_REQUEST["com"];
+		$dt=date("Y-m-d h:i:sa");
 		$stu=array(
 			"comm"=>$com,
 			"uid"=>$uid,
-			"pid"=>$pid
+			"pid"=>$pid,
+			"com_date_time"=>$dt
 		);
+		//print_r($stu);exit();
 		$md->insert($con,$stu,"comments");
 		header("location:product_list.php");
 	}
@@ -290,15 +295,17 @@
 	if(isset($_REQUEST["comments_view"]))
 	{
 		$pid=$_REQUEST["comments_view"];
+		$where=array(
+			"pid"=>$pid
+		);
+		$pdata1=$md->select_where($con,"product",$where);
+		$pdata=$pdata1[0];
 		foreach ($_SESSION["logged"] as $k)
 		{
     		$cid=$k->uid;
     	}
-    	$where=array(
-			"pid"=>$pid
-		);
-		$str="comments.uid=user.uid";
-		$com_data=$md->join_con($con,"user","comments",$str,$where);
+    	$str="comments.uid=user.uid";
+		$com_data=$md->join_con_order($con,"user","comments",$str,$where,"com_date_time");
 	}
 	//------------------Product Department end----------------
 	//Logout
