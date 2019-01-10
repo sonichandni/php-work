@@ -12,12 +12,10 @@
       foreach ($pdata as $v) {
       ?>
       <td><center>
-        <a href="comments.php?pid=<?php echo $v['pid']; ?>">
+        <a href="comments_all.php?comments_view=<?php echo $v['pid']; ?>">
           <?php echo '<img src = "./prod_images/'.$v["pimg"].'" class = "prod-img" >'; ?>
         </a>
-        <a href="comments_all.php?comments_view=<?php echo $v['pid']; ?>">
-          <button type="button" style="font-size: 15px;">View Comments</button>
-        </a>
+        
       </center></td>
     <?php } }?>
   </tr>

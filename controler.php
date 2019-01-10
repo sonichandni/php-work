@@ -174,7 +174,20 @@
 		$pwd=$_REQUEST["pwd"];
 		$cpwd=$_REQUEST["cpwd"];
 		$dp=$_FILES["dp"]["name"];
-		if(isset($dp))
+		//echo $dp;exit;
+		$set = array(
+	       	"first_name"=>$_REQUEST["fnm"],
+			"last_name"=>$_REQUEST["lnm"],
+			"email"=>$_REQUEST["email"],
+			"pwd"=>$_REQUEST["pwd"]
+	    );
+	    $where = array(
+	      	"uid"=>$uid
+	    );
+	    $md->updt($con,"user",$set,$where);
+	    $res=$md->select_where($con,"user",$where);
+		$_SESSION["logged"]=$res;
+		if($dp !='')
 		{
 			$filename1=explode(".",$dp);
 	        $ext= end($filename1);
@@ -184,10 +197,6 @@
 			{
 	            move_uploaded_file($php_path,$path);
 	            $set = array(
-	            	"first_name"=>$_REQUEST["fnm"],
-					"last_name"=>$_REQUEST["lnm"],
-					"email"=>$_REQUEST["email"],
-					"pwd"=>$_REQUEST["pwd"],
 	            	"profile_pic"=>$dp
 	            );
 	            $where = array(
@@ -281,8 +290,11 @@
 	if(isset($_REQUEST["comments_view"]))
 	{
 		$pid=$_REQUEST["comments_view"];
-		//echo $pid;exit;
-		$where=array(
+		foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    	}
+    	$where=array(
 			"pid"=>$pid
 		);
 		$str="comments.uid=user.uid";
