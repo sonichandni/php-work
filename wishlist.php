@@ -9,16 +9,16 @@
 			{
 			?>
 			<tr>
-				<td>
+				<td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
 					<?php 
 						echo '<img src = "./prod_images/'.$v->pimg.'">';
 					?>
-				</td>
-				<td>
+				</a></td>
+				<td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
 					<?php
 						echo $v->pname;
 					?>
-				</td>
+				</a></td>
 			</tr>
 			<?php
 			}
