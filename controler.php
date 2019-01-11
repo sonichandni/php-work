@@ -224,17 +224,10 @@
 	//------------------Edit users details end----------------
 
 	//------------------Product Department start--------------
-	if(isset($_REQUEST["add_product_pg"]))
-	{
-		header("location:product_add.php");
-	}
-	if(isset($_REQUEST["view_product_pg"]))
-	{
-		header("location:product_list.php");
-	}
 	if(isset($_REQUEST["add_product_db"]))
 	{
 		$pnm = $_REQUEST["pnm"];
+		$price=$_REQUEST["price"];
 		$pdisc = $_REQUEST["pdisc"];
 		$pimg=$_FILES["pimg"]["name"];
 		$filename1=explode(".",$pimg);
@@ -247,7 +240,8 @@
 	            $stu = array(
 	            	"pname"=>$pnm,
 	            	"pimg"=>$pimg,
-	            	"prod_disc"=>$pdisc
+	            	"prod_disc"=>$pdisc,
+	            	"price"=>$price
 	            );
 	            $md->insert($con,$stu,"product");
 	        }
@@ -306,8 +300,57 @@
     	}
     	$str="comments.uid=user.uid";
 		$com_data=$md->join_con_order($con,"user","comments",$str,$where,"com_date_time");
+		$where=array(
+			"pid"=>$pid,
+			"uid"=>$cid
+		);
+		$wdata=$md->select_where($con,"wishlist",$where);
+		//print_r($wdata);exit;
 	}
 	//------------------Product Department end----------------
+
+	//------------------Wishlist Management start------------------
+	//add product to wishlist
+	if(isset($_REQUEST["add_to_wishlist"]))
+	{
+		$uid=$_REQUEST["uid"];
+		$pid=$_REQUEST["pid"];
+
+		$data = array(
+			"uid"=>$uid,
+			"pid"=>$pid
+		);
+		//print_r($data);exit;
+		$md->insert($con,$data,"wishlist");
+		echo "success";
+	}
+	//remove product from wishlist
+	if(isset($_REQUEST["remove_from_wishlist"]))
+	{
+		$uid=$_REQUEST["uid"];
+		$pid=$_REQUEST["pid"];
+
+		$where = array(
+			"uid"=>$uid,
+			"pid"=>$pid
+		);
+		//print_r($data);exit;
+		$md->dlt($con,"wishlist",$where);
+		echo "success";
+	}
+	//go to wishlist page
+	if(isset($_REQUEST["wishlist"]))
+	{
+		foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    	}
+    	$where=array(
+    		"uid"=>$cid
+    	);
+    	$wd=$md->join_con($con,"product","wishlist","product.pid=wishlist.pid",$where);
+	}
+	//------------------Wishlist Management end--------------------
 	//Logout
 	if(isset($_REQUEST["logout"]))
 	{
