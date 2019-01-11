@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2019 at 02:32 PM
+-- Generation Time: Jan 11, 2019 at 12:15 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -57,7 +57,8 @@ INSERT INTO `comments` (`cid`, `comm`, `uid`, `pid`, `com_date_time`) VALUES
 (15, 'ekdbj\r\nasd\r\nesafas\r\nwef', 2, 3, '2019-01-10 12:07:14'),
 (16, 'Nice design', 2, 3, '2019-01-10 02:22:43'),
 (17, 'ejdfnjewn', 2, 3, '2019-01-10 06:59:10'),
-(18, 'ajdnajsdn', 2, 3, '2019-01-10 07:00:00');
+(18, 'ajdnajsdn', 2, 3, '2019-01-10 07:00:00'),
+(19, 'sadxd', 2, 1, '2019-01-10 07:11:15');
 
 -- --------------------------------------------------------
 
@@ -69,17 +70,18 @@ CREATE TABLE `product` (
   `pid` int(11) NOT NULL,
   `pname` varchar(30) NOT NULL,
   `prod_disc` varchar(500) NOT NULL,
-  `pimg` varchar(50) NOT NULL
+  `pimg` varchar(50) NOT NULL,
+  `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`pid`, `pname`, `prod_disc`, `pimg`) VALUES
-(1, 'm1', '3 GB RAM | 32 GB ROM | Expandable Upto 2 TB 15.9 cm (6.26 inch) HD+ Display 13MP + 2MP | 8MP Front Camera 4000 Battery Qualcomm Snapdragon 632 Octa Core Processor Pure Android 8.1 Oreo (Stock)', 'm1.jpg'),
-(2, 'm2', '3 GB RAM | 32 GB ROM | Expandable Upto 2 TB 15.9 cm (6.26 inch) HD+ Display 13MP + 2MP | 8MP Front Camera 4000 Battery Qualcomm Snapdragon 632 Octa Core Processor Pure Android 8.1 Oreo (Stock)', 'm2.jpg'),
-(3, 'm3', '3 GB RAM | 32 GB ROM | Expandable Upto 2 TB 15.9 cm (6.26 inch) HD+ Display 13MP + 2MP | 8MP Front Camera 4000 Battery Qualcomm Snapdragon 632 Octa Core Processor Pure Android 8.1 Oreo (Stock)', 'm3.jpg');
+INSERT INTO `product` (`pid`, `pname`, `prod_disc`, `pimg`, `price`) VALUES
+(1, 'Realme 2', '3 GB RAM | 32 GB ROM | Expandable Upto 2 TB 15.9 cm (6.26 inch) HD+ Display 13MP + 2MP | 8MP Front Camera 4000 Battery Qualcomm Snapdragon 632 Octa Core Processor Pure Android 8.1 Oreo (Stock)', 'm1.jpg', '9499.00'),
+(2, 'Redmi Note 6 Pro', '3 GB RAM | 32 GB ROM | Expandable Upto 2 TB 15.9 cm (6.26 inch) HD+ Display 13MP + 2MP | 8MP Front Camera 4000 Battery Qualcomm Snapdragon 632 Octa Core Processor Pure Android 8.1 Oreo (Stock)', 'm2.jpg', '13999.00'),
+(3, 'Asus Zenfone Max M2', '3 GB RAM | 32 GB ROM | Expandable Upto 2 TB 15.9 cm (6.26 inch) HD+ Display 13MP + 2MP | 8MP Front Camera 4000 Battery Qualcomm Snapdragon 632 Octa Core Processor Pure Android 8.1 Oreo (Stock)', 'm3.jpg', '9999.00');
 
 -- --------------------------------------------------------
 
@@ -102,10 +104,30 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `first_name`, `last_name`, `email`, `profile_pic`, `pwd`, `date_created`) VALUES
-(1, 'wdsqw', 'jhjh', 'hho@gmaik.com', '', '123', '2018-12-31'),
-(2, 'Chandni', 'Soni', 'cs@gmail.com', 'sm.png', 'Chandni!11', '0000-00-00'),
+(1, 'Nenshi', 'Patel', 'hho@gmaik.com', '', 'Nenshi!11', '2018-12-31'),
+(2, 'Chandni', 'Soni', 'cs@gmail.com', 'mypic.jpg', 'Chandni!11', '0000-00-00'),
 (3, 'Diya', 'Sharma', 'soni.chandni.415@gmail.com', '', 'Chandni@2', '0000-00-00'),
-(4, 'Maya', 'Khanna', 'maya@gmail.com', '', 'maya1', '2018-12-31');
+(4, 'Maya', 'Khanna', 'maya@gmail.com', 'sm.png', 'Maya!111', '2018-12-31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlist`
+--
+
+CREATE TABLE `wishlist` (
+  `wid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`wid`, `pid`, `uid`) VALUES
+(14, 2, 4),
+(17, 1, 2);
 
 --
 -- Indexes for dumped tables
@@ -130,6 +152,12 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`uid`);
 
 --
+-- Indexes for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD PRIMARY KEY (`wid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -137,7 +165,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -150,6 +178,12 @@ ALTER TABLE `product`
 --
 ALTER TABLE `user`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
