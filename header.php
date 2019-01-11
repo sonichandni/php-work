@@ -62,6 +62,7 @@
       echo "Hi, ".$v->first_name." ".$v->last_name;
     } ?></b>
     <button type="submit" name="logout" id="logout" class="logout-btn"><i class="fa fa-power-off"></i></button>
+    <button type="submit" name="cart" id="cart" class="logout-btn"><i class="fa fa-cart-plus"></i></button>
     <button type="submit" name="home" id="home" class="logout-btn"><i class="fa fa-home"></i></button>
   </div>
 

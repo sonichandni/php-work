@@ -1,7 +1,7 @@
 <?php
   include 'header.php';
 ?>
-<form name="addToWishlist" id="addToWishlist" method="POST">
+<form name="product_det" id="product_det" method="POST">
 <div style="width: 950px; height: 450px;border: 4px solid black; margin-left: 20px;border-radius: 50px; padding: 20px;background: url('./user_images/s1.png');overflow: scroll; ">
 
 	<input type="hidden" name="uid" id="uid" value="<?php echo $cid; ?>">
@@ -26,7 +26,7 @@
 		<div style="width: 50%;float: right;">
 			<p><?php echo $pdata->prod_disc; ?>
 				<br><p><b>Price:</b><?php echo $pdata->price; ?></p>
-				<center><button name="buy_now" id="buy_now" class="buy-now">Buy Now</button></center>
+				<center><button type="submit" name="buy_now" id="buy_now" class="buy-now">Buy Now</button></center>
 			</p>
 		</div>
 	</div>

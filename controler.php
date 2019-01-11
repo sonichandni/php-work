@@ -351,6 +351,43 @@
     	$wd=$md->join_con($con,"product","wishlist","product.pid=wishlist.pid",$where);
 	}
 	//------------------Wishlist Management end--------------------
+
+	//------------------Cart Management Start----------------------
+	if(isset($_REQUEST["buy_now"]))
+	{
+		$uid=$_REQUEST["uid"];
+		$pid=$_REQUEST["pid"];
+		$where=array(
+    		"pid"=>$pid
+    	);
+    	$buy_prod=$md->select_where($con,"product",$where);
+    	$data=array(
+    		"uid"=>$uid,
+    		"pid"=>$pid
+    	);
+    	$md->insert($con,$data,"cart");
+    	$where=array(
+			"uid"=>$cid
+		);
+		$cart_data=$md->join_con($con,"product","cart","product.pid=cart.pid",$where);
+		$_SESSION["cart_data"]=$cart_data;
+		//print_r($where);exit;
+	}
+	if(isset($_REQUEST["cart"]))
+	{
+		header("location:cart.php");
+		foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    	}
+		$where=array(
+			"uid"=>$cid
+		);
+		$cart_data=$md->join_con($con,"product","cart","product.pid=cart.pid",$where);
+		$_SESSION["cart_data"]=$cart_data;
+	}
+
+	//------------------Cart Management Start----------------------
 	//Logout
 	if(isset($_REQUEST["logout"]))
 	{
