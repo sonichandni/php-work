@@ -6,6 +6,7 @@
     if(isset($_SESSION["cart_data"]))
     {
       $sum=0;
+      $cnt=1;
       foreach($_SESSION["cart_data"] as $v)
       {
       ?>
@@ -26,6 +27,7 @@
             $sum=$sum+$v->price;
           ?>
         </a></td>
+        <td style="padding: 2%;width: 100px;"><i class="fa fa-trash del_prod_one" style="font-size: 36px;color: #999999;" id="delete_from_cart<?php echo $cnt; $cnt++; ?>" pidval="<?php echo $v->pid?>"></i></td>
       </tr>
 
       <?php

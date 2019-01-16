@@ -179,6 +179,7 @@
 	       	"first_name"=>$_REQUEST["fnm"],
 			"last_name"=>$_REQUEST["lnm"],
 			"email"=>$_REQUEST["email"],
+			"address"=>$_REQUEST["add"],
 			"pwd"=>$_REQUEST["pwd"]
 	    );
 	    $where = array(
@@ -367,7 +368,7 @@
     	);
     	$md->insert($con,$data,"cart");
     	$where=array(
-			"uid"=>$cid
+			"uid"=>$uid
 		);
 		$cart_data=$md->join_con($con,"product","cart","product.pid=cart.pid",$where);
 		$_SESSION["cart_data"]=$cart_data;
@@ -398,5 +399,48 @@
 	if(isset($_REQUEST["home"]))
 	{
 		header("location:dashboard.php");
+	}
+	//place order
+	if(isset($_REQUEST["place_order"]))
+	{
+		header("location:place_order.php");
+	}
+	//delivery Address
+	if(isset($_REQUEST["place_order_add"]))
+	{
+		$add=$_REQUEST["deladd"];
+		foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    	}
+		$where=array(
+			"uid"=>$cid
+		);
+		$set=array(
+			"delivery_address"=>$add
+		);
+		$md->updt($con,"user",$set,$where);
+		$res=$md->select_where($con,"user",$where);
+		$_SESSION["logged"]=$res;	
+		header("location:payment.php");
+	}
+	//Delete product from cart
+	if(isset($_REQUEST["del_prod_from_cart"]))
+	{
+		$pid=$_REQUEST["pid"];
+		foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    	}
+		$where=array(
+			"uid"=>$cid,
+			"pid"=>$pid
+		);
+		$md->dlt($con,"cart",$where);
+		$where = array(
+			"uid"=>$cid
+		);
+		$cart_data=$md->join_con($con,"product","cart","product.pid=cart.pid",$where);
+		$_SESSION["cart_data"]=$cart_data;
 	}
 ?>

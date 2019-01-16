@@ -8,52 +8,7 @@
   <link rel="stylesheet" type="text/css" href="./assets/css/style1.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      $("#product").click(function(){
-        $("#p_menu").slideToggle("slow");
-      });
-      $("#wishlist").click(function(){
-        //alert(this);
-        if(this.style.color == "lightgrey")
-        {
-          var uid = $('#uid').val();
-          var pid = $('#pid').val();
-          $.ajax({
-            url: 'controler.php',
-            type: 'POST',
-            data: {add_to_wishlist:"add_to_wish_list",uid: uid,pid: pid},
-            success: function(response)
-            {
-              //alert(response);
-              if(response == "success")
-              {
-                wishlist.style.color = "red";
-              }
-            }
-          });
-        }
-        else if(this.style.color = "red")
-        {
-          var uid = $('#uid').val();
-          var pid = $('#pid').val();
-          $.ajax({
-            url: 'controler.php',
-            type: 'POST',
-            data: {remove_from_wishlist:"remove_from_wishlist",uid: uid,pid: pid},
-            success: function(response)
-            {
-              //alert(response);
-              if(response == "success")
-              {
-                wishlist.style.color = "lightgrey";
-              }
-            }
-          });
-        }
-      });
-    });
-  </script>
+  <script type="text/javascript" src="./assets/js/ajax.js"></script>
 </head>
 <body>
 <form method="post" role="form"  enctype="multipart/form-data" >

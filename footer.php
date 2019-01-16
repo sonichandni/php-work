@@ -2,8 +2,6 @@
   <div class="footer">
     
   </div>
- 
-  
-</form>
+ </form>
 </body>
 </html>
