@@ -47,7 +47,7 @@
 <div id="div_card" style="display: none;">
 	<input type="number" name="dc" placeholder="Card Number">
 	<input type="Number" name="ex_date" placeholder="Expiry date">
-	<input type="Number" name="cvn" placeholder="CVN">
+	<input type="Number" name="cvn" placeholder="CVV">
 </div>
 <input type="radio" name="pay_opt" id="pay_opt" class="pay-opt" value="net_banking">Net Banking<br>
 <div id="div_netb" style="display: none;">
