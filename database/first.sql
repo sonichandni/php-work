@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2019 at 01:33 PM
+-- Generation Time: Jan 16, 2019 at 01:55 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -39,9 +39,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `pid`, `uid`) VALUES
-(1, 3, 2),
-(3, 2, 2),
-(4, 1, 2);
+(5, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -115,6 +113,8 @@ CREATE TABLE `user` (
   `first_name` char(30) NOT NULL,
   `last_name` char(30) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `delivery_address` varchar(200) NOT NULL,
   `profile_pic` varchar(50) NOT NULL,
   `pwd` varchar(20) NOT NULL,
   `date_created` date NOT NULL
@@ -124,11 +124,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uid`, `first_name`, `last_name`, `email`, `profile_pic`, `pwd`, `date_created`) VALUES
-(1, 'Nenshi', 'Patel', 'hho@gmaik.com', '', 'Nenshi!11', '2018-12-31'),
-(2, 'Chandni', 'Soni', 'cs@gmail.com', 'mypic.jpg', 'Chandni!11', '0000-00-00'),
-(3, 'Diya', 'Sharma', 'soni.chandni.415@gmail.com', '', 'Chandni@2', '0000-00-00'),
-(4, 'Maya', 'Khanna', 'maya@gmail.com', 'sm.png', 'Maya!111', '2018-12-31');
+INSERT INTO `user` (`uid`, `first_name`, `last_name`, `email`, `address`, `delivery_address`, `profile_pic`, `pwd`, `date_created`) VALUES
+(1, 'Nenshi', 'Patel', 'hho@gmaik.com', '', '', '', 'Nenshi!11', '2018-12-31'),
+(2, 'Chandni', 'Soni', 'cs@gmail.com', 'agdvjaw\r\nef\r\nasf\r\n12\r\nds\r\nfc', 'agdvjaw\r\nef\r\nasf\r\n12\r\nds\r\nfc', 'mypic.jpg', 'Chandni!11', '0000-00-00'),
+(3, 'Diya', 'Sharma', 'soni.chandni.415@gmail.com', '', '', '', 'Chandni@2', '0000-00-00'),
+(4, 'Maya', 'Khanna', 'maya@gmail.com', '', 'jhbwdhed\r\ndasd\r\nd', 'sm.png', 'Maya!111', '2018-12-31');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE `wishlist` (
 
 INSERT INTO `wishlist` (`wid`, `pid`, `uid`) VALUES
 (14, 2, 4),
-(17, 1, 2);
+(20, 1, 2);
 
 --
 -- Indexes for dumped tables
@@ -192,7 +192,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -204,7 +204,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -216,7 +216,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
