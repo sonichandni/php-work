@@ -1,69 +1,96 @@
 <?php
-  include 'header.php';
-?>
-<label>&nbsp;Product details:</label>
-<table>
-  <?php
-    if(isset($_SESSION["cart_data"]))
-    {
-      $sum=0;
-      foreach($_SESSION["cart_data"] as $v)
-      {
-      ?>
-      <tr>
-        <td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
-          <?php 
-            echo '<img src = "./prod_images/'.$v->pimg.'">';
-          ?>
-        </a></td>
-        <td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
-          <?php
-            echo $v->pname;
-          ?>
-        </a></td>
-        <td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
-          <?php
-            echo $v->price;
-            $sum=$sum+$v->price;
-          ?>
-        </a></td>
-        <td style="padding: 2%;width: 100px;"><i class="fa fa-trash del_prod_one" style="font-size: 36px;color: #999999;" pidval="<?php echo $v->pid?>"></i></td>
-      </tr>
+// For test payments we want to enable the sandbox mode. If you want to put live
+// payments through then this setting needs changing to `false`.
+$enableSandbox = true;
 
-      <?php
-      }?>
-      <tr>
-        <td colspan="2"><center><b>Total Price</b></center></td>
-        <td><?php echo $sum; ?></td>
-      </tr>
-    <?php }
-  ?>
-</table><hr><br>
-<label>&nbsp;Delivery Address:</label>
-<textarea name="deladd" id="deladd" rows="3" cols="60" placeholder="Delivery Address" ><?php foreach($_SESSION["logged"] as $s){if(isset($s->delivery_address)) { echo $s->delivery_address; }} ?></textarea><hr>	
-<br>
-<label>&nbsp;Payment Options:</label><br>
-<input type="radio" name="pay_opt" id="pay_opt" class="pay-opt" value="debit_credit_card">Debit/Credit Card<br>
-<div id="div_card" style="display: none;">
-	<input type="number" name="dc" placeholder="Card Number">
-	<input type="Number" name="ex_date" placeholder="Expiry date">
-	<input type="Number" name="cvn" placeholder="CVV">
-</div>
-<input type="radio" name="pay_opt" id="pay_opt" class="pay-opt" value="net_banking">Net Banking<br>
-<div id="div_netb" style="display: none;">
-	<select>
-		<option value="sbi">SBI</option>
-		<option value="cbi">CBI</option>
-		<option value="bob">BOB</option>
-		<option value="boi">BOI</option>
-	</select>
-</div>
-<input type="radio" name="pay_opt" id="pay_opt" class="pay-opt" value="cash_on_delivery">Cash on delivery<br>
-<div id="div_cod" style="display: none;">
-	<button>
-		Confirm Order
-	</button>
-</div>
-<?php
-  include 'footer.php';
+// Database settings. Change these for your database configuration.
+$dbConfig = [
+    'host' => 'localhost',
+    'username' => 'root',
+    'password' => '',
+    'name' => 'example_database'
+];
+
+// PayPal settings. Change these to your account details and the relevant URLs
+// for your site.
+$paypalConfig = [
+    'email' => 'user@example.com',
+    'return_url' => 'http://example.com/payment-successful.html',
+    'cancel_url' => 'http://example.com/payment-cancelled.html',
+    'notify_url' => 'http://example.com/payments.php'
+];
+
+$paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
+
+// Product being purchased.
+$itemName = 'Test Item';
+$itemAmount = 5.00;
+
+// Include Functions
+require 'functions.php';
+
+// Check if paypal request or response
+if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
+
+    // Grab the post data so that we can set up the query string for PayPal.
+    // Ideally we'd use a whitelist here to check nothing is being injected into
+    // our post data.
+    $data = [];
+    foreach ($_POST as $key => $value) {
+        $data[$key] = stripslashes($value);
+    }
+
+    // Set the PayPal account.
+    $data['business'] = $paypalConfig['email'];
+
+    // Set the PayPal return addresses.
+    $data['return'] = stripslashes($paypalConfig['return_url']);
+    $data['cancel_return'] = stripslashes($paypalConfig['cancel_url']);
+    $data['notify_url'] = stripslashes($paypalConfig['notify_url']);
+
+    // Set the details about the product being purchased, including the amount
+    // and currency so that these aren't overridden by the form data.
+    $data['item_name'] = $itemName;
+    $data['amount'] = $itemAmount;
+    $data['currency_code'] = 'GBP';
+
+    // Add any custom fields for the query string.
+    //$data['custom'] = USERID;
+
+    // Build the query string from the data.
+    $queryString = http_build_query($data);
+
+    // Redirect to paypal IPN
+    header('location:' . $paypalUrl . '?' . $queryString);
+    exit();
+
+} else {
+    // Handle the PayPal response.
+    // Handle the PayPal response.
+
+// Create a connection to the database.
+$db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['name']);
+
+// Assign posted variables to local data array.
+$data = [
+    'item_name' => $_POST['item_name'],
+    'item_number' => $_POST['item_number'],
+    'payment_status' => $_POST['payment_status'],
+    'payment_amount' => $_POST['mc_gross'],
+    'payment_currency' => $_POST['mc_currency'],
+    'txn_id' => $_POST['txn_id'],
+    'receiver_email' => $_POST['receiver_email'],
+    'payer_email' => $_POST['payer_email'],
+    'custom' => $_POST['custom'],
+];
+
+// We need to verify the transaction comes from PayPal and check we've not
+// already processed the transaction before adding the payment to our
+// database.
+if (verifyTransaction($_POST) && checkTxnid($data['txn_id'])) {
+    if (addPayment($data) !== false) {
+        // Payment successfully added.
+    }
+}
+}
 ?>
