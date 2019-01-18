@@ -1,5 +1,6 @@
 <?php
   include 'header.php';
+  if(isset($_SESSION["logged"])){
   //print_r($_SESSION["logged"]);exit;
   foreach ($_SESSION["logged"] as $k)
   {
@@ -25,4 +26,9 @@
 </form>
 <?php
   include 'footer.php';
+  }
+  else
+  {
+    header("location:index.php");
+  }
 ?>

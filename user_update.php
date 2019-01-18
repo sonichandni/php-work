@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	if(isset($_SESSION["logged"])){
 ?>
 <form method="post" name="user_up" id="user_up">
   <input type="hidden"  id="uid" name="uid" value="<?php if(isset($sel_user_data->uid)) { echo $sel_user_data->uid; }?>" />
@@ -17,4 +18,9 @@
 </form>
 <?php
   include 'footer.php';
+  }
+  else
+  {
+    header("location:index.php");
+  }
 ?>

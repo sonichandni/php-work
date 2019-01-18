@@ -1,5 +1,6 @@
 <?php
   include 'header.php';
+  if(isset($_SESSION["logged"])){
 ?>
 <form name="product_det" id="product_det" method="POST">
 <div style="width: 950px; height: 450px;border: 4px solid black; margin-left: 20px;border-radius: 50px; padding: 20px;background: url('./user_images/s1.png');overflow: scroll; ">
@@ -51,4 +52,9 @@
 </form>
 <?php
   include 'footer.php';
+  }
+  else
+  {
+    header("location:index.php");
+  }
 ?>

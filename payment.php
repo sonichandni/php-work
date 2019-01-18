@@ -8,7 +8,7 @@ $dbConfig = [
     'host' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'name' => 'example_database'
+    'name' => 'first'
 ];
 
 // PayPal settings. Change these to your account details and the relevant URLs
@@ -17,7 +17,7 @@ $paypalConfig = [
     'email' => 'user@example.com',
     'return_url' => 'http://example.com/payment-successful.html',
     'cancel_url' => 'http://example.com/payment-cancelled.html',
-    'notify_url' => 'http://example.com/payments.php'
+    'notify_url' => 'payment.php'
 ];
 
 $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
@@ -28,7 +28,7 @@ $itemAmount = 5.00;
 
 // Include Functions
 require 'functions.php';
-
+//echo $_POST["txn_id"];exit();
 // Check if paypal request or response
 if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 

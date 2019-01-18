@@ -1,5 +1,6 @@
 <?php
   include 'header.php';
+  if(isset($_SESSION["logged"])){
 ?>
 
 <form method="post" name="user_up" id="user_up" enctype="multipart/form-data">
@@ -11,4 +12,9 @@
 </form>
 <?php
   include 'footer.php';
+  }
+  else
+  {
+    header("location:index.php");
+  }
 ?>

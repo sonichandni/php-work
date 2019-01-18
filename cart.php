@@ -1,6 +1,8 @@
 <?php
   include 'header.php';
+  if(isset($_SESSION["logged"])){
 ?>
+<form method="post">
 <table>
   <?php
     if(isset($_SESSION["cart_data"]))
@@ -41,6 +43,12 @@
 </table>
 <br>
 <button type="submit" name="place_order" id="place_order" class="buy-now" style="margin-left: 120px;">Place Order</button>
+</form>
 <?php
   include 'footer.php';
+  }
+  else
+  {
+    header("location:index.php");
+  }
 ?>

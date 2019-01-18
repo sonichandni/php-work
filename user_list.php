@@ -1,5 +1,6 @@
 <?php
   include 'header.php';
+  if(isset($_SESSION["logged"])){
 ?>
 <table class="user-list">
   <thead>
@@ -30,7 +31,7 @@
         </td>
         <td class="user_list-tbl"><center>
           <a href="user_list.php?user_delete=<?php echo $v['uid']; ?>">
-            <button type="button" class="btn-circle-danger">
+            <button type="button" class="btn-circle-danger" onclick="return confirmDelete()">
               <i class="fa fa-trash"></i>
             </button>
           </a></center></td>
@@ -43,4 +44,9 @@
 </table>
 <?php
   include 'footer.php';
+  }
+  else
+  {
+    header("location:index.php");
+  }
 ?>

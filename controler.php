@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	
 	include 'model.php';
 	$md = new model();
 	$user_cnt=$md->cnt($con,"user");
@@ -231,25 +232,26 @@
 		$price=$_REQUEST["price"];
 		$pdisc = $_REQUEST["pdisc"];
 		$pimg=$_FILES["pimg"]["name"];
+		if($pnm!='' && $price!='' && $pdisc!='' && $pimg!=''){
 		$filename1=explode(".",$pimg);
-	        $ext= end($filename1);
-	        $php_path= $_FILES["pimg"]["tmp_name"];
-	        $path= "prod_images/$pimg";
-	        if($ext=='jpg' || $ext=='jpeg' || $ext=='png')
-			{
-	            move_uploaded_file($php_path,$path);
-	            $stu = array(
-	            	"pname"=>$pnm,
-	            	"pimg"=>$pimg,
-	            	"prod_disc"=>$pdisc,
-	            	"price"=>$price
-	            );
-	            $md->insert($con,$stu,"product");
-	        }
-			else
-			{
-				echo "<script>alert('invalid file..try again');</script>";
-			}
+	    $ext= end($filename1);
+	    $php_path= $_FILES["pimg"]["tmp_name"];
+	    $path= "prod_images/$pimg";
+	    if($ext=='jpg' || $ext=='jpeg' || $ext=='png')
+		{
+	        move_uploaded_file($php_path,$path);
+	        $stu = array(
+	           	"pname"=>$pnm,
+	           	"pimg"=>$pimg,
+	           	"prod_disc"=>$pdisc,
+	           	"price"=>$price
+	        );
+	        $md->insert($con,$stu,"product");
+	    }
+		else
+		{
+			echo "<script>alert('invalid file..try again');</script>";
+		}}
 	}
 	if (isset($_REQUEST["pid"]))
 	{
@@ -275,6 +277,7 @@
 		$pid=$_REQUEST["pid"];
 		$uid=$_REQUEST["uid"];
 		$com=$_REQUEST["com"];
+		if($com!=''){
 		$dt=date("Y-m-d h:i:sa");
 		$stu=array(
 			"comm"=>$com,
@@ -284,7 +287,8 @@
 		);
 		//print_r($stu);exit();
 		$md->insert($con,$stu,"comments");
-		header("location:product_list.php");
+		}
+		header("location:comments_all.php?comments_view=$pid");
 	}
 	//view all comments
 	if(isset($_REQUEST["comments_view"]))
@@ -366,7 +370,10 @@
     		"uid"=>$uid,
     		"pid"=>$pid
     	);
+    	$check_cart_data=$md->select_where($con,"cart",$data);
+    	if($check_cart_data==''){
     	$md->insert($con,$data,"cart");
+    	}
     	$where=array(
 			"uid"=>$uid
 		);
@@ -422,7 +429,7 @@
 		$md->updt($con,"user",$set,$where);
 		$res=$md->select_where($con,"user",$where);
 		$_SESSION["logged"]=$res;	
-		header("location:payment.php");
+		header("location:payment2.php");
 	}
 	//Delete product from cart
 	if(isset($_REQUEST["del_prod_from_cart"]))

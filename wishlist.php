@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+	if(isset($_SESSION["logged"])){
 ?>
 <table>
 	<?php
@@ -27,4 +28,9 @@
 </table>
 <?php
 	include 'footer.php';
+	}
+	else
+	{
+	  header("location:index.php");
+	}
 ?>
