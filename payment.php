@@ -14,17 +14,17 @@ $dbConfig = [
 // PayPal settings. Change these to your account details and the relevant URLs
 // for your site.
 $paypalConfig = [
-    'email' => 'user@example.com',
-    'return_url' => 'http://example.com/payment-successful.html',
-    'cancel_url' => 'http://example.com/payment-cancelled.html',
+    'email' => $_POST['payer_email'],
+    'return_url' => 'http://localhost/first2/payment-successful.php',
+    'cancel_url' => 'http://localhost/first2/payment-cancelled.php',
     'notify_url' => 'payment.php'
 ];
 
 $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 
 // Product being purchased.
-$itemName = 'Test Item';
-$itemAmount = 5.00;
+$itemName = $_POST['item_name'];
+$itemAmount =  $_POST["payment_amount"];
 
 // Include Functions
 require 'functions.php';
@@ -53,19 +53,19 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
     $data['item_name'] = $itemName;
     $data['amount'] = $itemAmount;
     $data['currency_code'] = 'GBP';
-
-    // Add any custom fields for the query string.
+    //echo "<pre>";
+  // Add any custom fields for the query string.
     //$data['custom'] = USERID;
-
+    //print_r($data);exit();
     // Build the query string from the data.
     $queryString = http_build_query($data);
 
     // Redirect to paypal IPN
     header('location:' . $paypalUrl . '?' . $queryString);
-    exit();
+    //exit();
 
-} else {
-    // Handle the PayPal response.
+
+   
     // Handle the PayPal response.
 
 // Create a connection to the database.
@@ -73,24 +73,20 @@ $db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password']
 
 // Assign posted variables to local data array.
 $data = [
-    'item_name' => $_POST['item_name'],
-    'item_number' => $_POST['item_number'],
-    'payment_status' => $_POST['payment_status'],
-    'payment_amount' => $_POST['mc_gross'],
-    'payment_currency' => $_POST['mc_currency'],
-    'txn_id' => $_POST['txn_id'],
-    'receiver_email' => $_POST['receiver_email'],
-    'payer_email' => $_POST['payer_email'],
-    'custom' => $_POST['custom'],
+    'item_name' => $_POST['item_number'],
+    'payment_amount' => $_POST['payment_amount'],
+    'add' => $_POST['add']
 ];
-
+//echo "<pre>";print_r($data);
 // We need to verify the transaction comes from PayPal and check we've not
 // already processed the transaction before adding the payment to our
 // database.
-if (verifyTransaction($_POST) && checkTxnid($data['txn_id'])) {
+
     if (addPayment($data) !== false) {
         // Payment successfully added.
+        //echo "hi";exit();
+        //header("location:payment-successful.html");
     }
-}
+
 }
 ?>

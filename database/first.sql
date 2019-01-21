@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 16, 2019 at 01:55 PM
+-- Generation Time: Jan 21, 2019 at 09:53 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -39,7 +39,9 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `pid`, `uid`) VALUES
-(5, 2, 4);
+(5, 2, 4),
+(19, 3, 2),
+(20, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -77,7 +79,46 @@ INSERT INTO `comments` (`cid`, `comm`, `uid`, `pid`, `com_date_time`) VALUES
 (16, 'Nice design', 2, 3, '2019-01-10 02:22:43'),
 (17, 'ejdfnjewn', 2, 3, '2019-01-10 06:59:10'),
 (18, 'ajdnajsdn', 2, 3, '2019-01-10 07:00:00'),
-(19, 'sadxd', 2, 1, '2019-01-10 07:11:15');
+(19, 'sadxd', 2, 1, '2019-01-10 07:11:15'),
+(20, 'jhvjv', 2, 2, '2019-01-17 07:40:18'),
+(21, '', 2, 1, '2019-01-18 12:00:41'),
+(22, '', 2, 1, '2019-01-18 12:58:21'),
+(23, 'hi', 2, 2, '2019-01-18 01:28:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `con_order`
+--
+
+CREATE TABLE `con_order` (
+  `id` int(6) NOT NULL,
+  `pid` varchar(20) NOT NULL,
+  `payment_amount` decimal(7,2) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `createdtime` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `con_order`
+--
+
+INSERT INTO `con_order` (`id`, `pid`, `payment_amount`, `uid`, `createdtime`) VALUES
+(1, '3,', '9999.00', 2, '2019-01-21 11:20:42'),
+(2, '3,', '9999.00', 2, '2019-01-21 11:22:43'),
+(3, '3,', '9999.00', 2, '2019-01-21 11:23:15'),
+(4, '3,', '9999.00', 2, '2019-01-21 12:07:54'),
+(5, '3,', '9999.00', 2, '2019-01-21 12:08:45'),
+(6, '3,', '9999.00', 2, '2019-01-21 12:23:09'),
+(7, '3,', '9999.00', 2, '2019-01-21 12:27:34'),
+(8, '2,3,', '23998.00', 2, '2019-01-21 13:04:06'),
+(9, 'Realme 2 Asus Zenfon', '19498.00', 2, '2019-01-21 13:11:34'),
+(10, '1.3.', '19498.00', 2, '2019-01-21 13:18:57'),
+(11, '1.3.', '19498.00', 2, '2019-01-21 14:01:00'),
+(12, '1.3.', '19498.00', 2, '2019-01-21 14:06:41'),
+(13, '1.3.', '19498.00', 2, '2019-01-21 14:11:18'),
+(14, '1.3.', '19498.00', 2, '2019-01-21 14:13:36'),
+(15, '1.3.', '19498.00', 2, '2019-01-21 14:19:21');
 
 -- --------------------------------------------------------
 
@@ -126,9 +167,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`uid`, `first_name`, `last_name`, `email`, `address`, `delivery_address`, `profile_pic`, `pwd`, `date_created`) VALUES
 (1, 'Nenshi', 'Patel', 'hho@gmaik.com', '', '', '', 'Nenshi!11', '2018-12-31'),
-(2, 'Chandni', 'Soni', 'cs@gmail.com', 'agdvjaw\r\nef\r\nasf\r\n12\r\nds\r\nfc', 'agdvjaw\r\nef\r\nasf\r\n12\r\nds\r\nfc', 'mypic.jpg', 'Chandni!11', '0000-00-00'),
-(3, 'Diya', 'Sharma', 'soni.chandni.415@gmail.com', '', '', '', 'Chandni@2', '0000-00-00'),
-(4, 'Maya', 'Khanna', 'maya@gmail.com', '', 'jhbwdhed\r\ndasd\r\nd', 'sm.png', 'Maya!111', '2018-12-31');
+(2, 'Chandni', 'Soni', 'cs@gmail.com', 'agdvjaw\r\nef\r\nasf\r\n12\r\nds\r\nfc', 'we,d', 'mypic.jpg', 'Chandni!11', '0000-00-00'),
+(7, 'Misha', 'Sharma', 'misha@gmail.com', 'askjx\r\n\r\nsfdc', '', 'sm.png', 'Chandni!11', '2019-01-18'),
+(8, '2jhd', 'shb', 'ugv@gv.sdi', '', '', '', 'Chandni!11', '2019-01-18');
 
 -- --------------------------------------------------------
 
@@ -148,7 +189,9 @@ CREATE TABLE `wishlist` (
 
 INSERT INTO `wishlist` (`wid`, `pid`, `uid`) VALUES
 (14, 2, 4),
-(20, 1, 2);
+(21, 2, 2),
+(23, 1, 7),
+(24, 3, 2);
 
 --
 -- Indexes for dumped tables
@@ -165,6 +208,12 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`cid`);
+
+--
+-- Indexes for table `con_order`
+--
+ALTER TABLE `con_order`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `product`
@@ -192,13 +241,19 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `con_order`
+--
+ALTER TABLE `con_order`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -210,13 +265,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

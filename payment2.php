@@ -8,6 +8,8 @@
     if(isset($_SESSION["cart_data"]))
     {
       $sum=0;
+      $prod_nm='';
+      $prod_id='';
       foreach($_SESSION["cart_data"] as $v)
       {
       ?>
@@ -20,6 +22,9 @@
         <td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
           <?php
             echo $v->pname;
+            $prod_nm.=$v->pname." ";
+            $prod_id.=$v->pid.".";
+            //echo $prod_nm;
           ?>
         </a></td>
         <td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
@@ -66,15 +71,15 @@
 	</button>
 </div> -->
 <form class="paypal" action="payment.php" method="post" id="paypal_form">
-        <input type="hidden" name="cmd" value="_xclick" />
+        <input type="hidden" name="item_name" value="<?php echo $prod_nm; ?>" />
+        <input type="hidden" name="payment_amount" value="<?php echo $sum; ?>" />
+        <input type="hidden" name="add" value="<?php foreach($_SESSION["logged"] as $s){if(isset($s->uid)) { echo $s->uid; }} ?>" />
+        <input type="hidden" name="payer_email" value="<?php foreach($_SESSION["logged"] as $s){if(isset($s->email)) { echo $s->email; }} ?>" />
+        <input type="hidden" name="item_number" value="<?php echo $prod_id; ?>" / >
+         <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+         <input type="hidden" name="cmd" value="_xclick" />
         <input type="hidden" name="no_note" value="1" />
-        <input type="hidden" name="lc" value="UK" />
-        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-        <input type="hidden" name="first_name" value="Customer's First Name" />
-        <input type="hidden" name="last_name" value="Customer's Last Name" />
-        <input type="hidden" name="payer_email" value="customer@example.com" />
-        <input type="hidden" name="item_number" value="123456" / >
-        <input type="submit" name="submit" value="Submit Payment"/>
+        <input type="submit" name="submit_to_paypal" id="submit_to_paypal" value="Submit Payment"/>
 </form>
 <?php
   include 'footer.php';

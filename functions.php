@@ -1,15 +1,16 @@
 <?php
+date_default_timezone_set("Asia/Kolkata");
 function addPayment($data) {
     global $db;
 
     if (is_array($data)) {
-        $stmt = $db->prepare('INSERT INTO `payments` (txnid, payment_amount, payment_status, itemid, createdtime) VALUES(?, ?, ?, ?, ?)');
+        $stmt = $db->prepare('INSERT INTO `con_order` (pid, payment_amount, uid, createdtime) VALUES(?, ?, ?, ?)');
+
         $stmt->bind_param(
-            'sdsss',
-            $data['txn_id'],
+            'sdis',
+            $data['item_name'],
             $data['payment_amount'],
-            $data['payment_status'],
-            $data['item_number'],
+            $data['add'],
             date('Y-m-d H:i:s')
         );
         $stmt->execute();

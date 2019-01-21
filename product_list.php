@@ -7,7 +7,7 @@
     <?php
     $pd=new getData();
     $pdata=$pd->getAllProducts();
-    echo "&nbsp;Click on product to comment...";
+    //echo "&nbsp;Click on product to comment...";
     if(isset($pdata))
     {
       foreach ($pdata as $v) {
