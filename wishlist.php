@@ -24,6 +24,10 @@
 			<?php
 			}
 		}
+		else
+		{
+			echo "No Products are added to wishlist";
+		}
 	?>
 </table>
 <?php

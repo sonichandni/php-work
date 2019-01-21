@@ -48,29 +48,7 @@
 <label>&nbsp;Delivery Address:</label>
 <textarea name="deladd" id="deladd" rows="3" cols="60" placeholder="Delivery Address" ><?php foreach($_SESSION["logged"] as $s){if(isset($s->delivery_address)) { echo $s->delivery_address; }} ?></textarea><hr>	
 <br>
-<!-- <label>&nbsp;Payment Options:</label><br>
-<input type="radio" name="pay_opt" id="pay_opt" class="pay-opt" value="debit_credit_card">Debit/Credit Card<br>
-<div id="div_card" style="display: none;">
-	<input type="number" name="dc" placeholder="Card Number">
-	<input type="Number" name="ex_date" placeholder="Expiry date">
-	<input type="Number" name="cvn" placeholder="CVV">
-</div>
-<input type="radio" name="pay_opt" id="pay_opt" class="pay-opt" value="net_banking">Net Banking<br>
-<div id="div_netb" style="display: none;">
-	<select>
-		<option value="sbi">SBI</option>
-		<option value="cbi">CBI</option>
-		<option value="bob">BOB</option>
-		<option value="boi">BOI</option>
-	</select>
-</div>
-<input type="radio" name="pay_opt" id="pay_opt" class="pay-opt" value="cash_on_delivery">Cash on delivery<br>
-<div id="div_cod" style="display: none;">
-	<button>
-		Confirm Order
-	</button>
-</div> -->
-<form class="paypal" action="payment.php" method="post" id="paypal_form">
+<form class="paypal" method="post" id="paypal_form">
         <input type="hidden" name="item_name" value="<?php echo $prod_nm; ?>" />
         <input type="hidden" name="payment_amount" value="<?php echo $sum; ?>" />
         <input type="hidden" name="add" value="<?php foreach($_SESSION["logged"] as $s){if(isset($s->uid)) { echo $s->uid; }} ?>" />

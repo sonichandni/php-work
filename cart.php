@@ -38,11 +38,18 @@
         <td colspan="2"><center><b>Total Price</b></center></td>
         <td><?php echo $sum; ?></td>
       </tr>
-    <?php }
-  ?>
+      <tr>
+        <td colspan="4">
+          <button type="submit" name="place_order" id="place_order" class="buy-now" style="margin-left: 120px;">Place Order</button>
+        </td>
+      </tr>
+      <?php }
+      else
+      {
+        echo "No product has been selected";
+      }
+       ?>
 </table>
-<br>
-<button type="submit" name="place_order" id="place_order" class="buy-now" style="margin-left: 120px;">Place Order</button>
 </form>
 <?php
   include 'footer.php';

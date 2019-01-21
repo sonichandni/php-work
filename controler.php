@@ -454,12 +454,6 @@
 	if(isset($_REQUEST["submit_to_paypal"]))
 	{
 		$enableSandbox = true;
-		$dbConfig = [
-		    'host' => 'localhost',
-		    'username' => 'root',
-		    'password' => '',
-		    'name' => 'first'
-		];
 		$paypalConfig = [
 	    	'email' => $_POST['payer_email'],
 		    'return_url' => 'http://localhost/first2/payment-successful.php',
@@ -469,9 +463,7 @@
 		$paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 		$itemName = $_POST['item_name'];
 		$itemAmount =  $_POST["payment_amount"];
-		require 'functions.php';
-		
-	    $data = [];
+		$data = [];
 	    foreach ($_POST as $key => $value) {
 	        $data[$key] = stripslashes($value);
 	    }
@@ -484,13 +476,18 @@
 	    $data['currency_code'] = 'GBP';
 	    $queryString = http_build_query($data);
 		header('location:' . $paypalUrl . '?' . $queryString);
-	    $db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['name']);
-		$data = [
+	    $data = [
 		    'item_name' => $_POST['item_number'],
 		    'payment_amount' => $_POST['payment_amount'],
 		    'add' => $_POST['add']
 		];
-	    addPayment($data);
+	    $data=array(
+	    	"pid"=>$data['item_name'],
+	    	"payment_amount"=>$data['payment_amount'],
+	    	"uid"=>$data['add'],
+	    	"createdtime"=>date('Y-m-d H:i:s')
+	    );
+	    $md->insert($con,$data,"con_order");
 	    foreach ($_SESSION["logged"] as $k)
 		{
     		$cid=$k->uid;
