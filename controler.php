@@ -450,4 +450,54 @@
 		$cart_data=$md->join_con($con,"product","cart","product.pid=cart.pid",$where);
 		$_SESSION["cart_data"]=$cart_data;
 	}
+	//final payment
+	if(isset($_REQUEST["submit_to_paypal"]))
+	{
+		$enableSandbox = true;
+		$dbConfig = [
+		    'host' => 'localhost',
+		    'username' => 'root',
+		    'password' => '',
+		    'name' => 'first'
+		];
+		$paypalConfig = [
+	    	'email' => $_POST['payer_email'],
+		    'return_url' => 'http://localhost/first2/payment-successful.php',
+		    'cancel_url' => 'http://localhost/first2/payment-cancelled.php',
+		    'notify_url' => 'payment.php'
+		];
+		$paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
+		$itemName = $_POST['item_name'];
+		$itemAmount =  $_POST["payment_amount"];
+		require 'functions.php';
+		
+	    $data = [];
+	    foreach ($_POST as $key => $value) {
+	        $data[$key] = stripslashes($value);
+	    }
+	    $data['business'] = $paypalConfig['email'];
+		$data['return'] = stripslashes($paypalConfig['return_url']);
+	    $data['cancel_return'] = stripslashes($paypalConfig['cancel_url']);
+	    $data['notify_url'] = stripslashes($paypalConfig['notify_url']);
+		$data['item_name'] = $itemName;
+	    $data['amount'] = $itemAmount;
+	    $data['currency_code'] = 'GBP';
+	    $queryString = http_build_query($data);
+		header('location:' . $paypalUrl . '?' . $queryString);
+	    $db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['name']);
+		$data = [
+		    'item_name' => $_POST['item_number'],
+		    'payment_amount' => $_POST['payment_amount'],
+		    'add' => $_POST['add']
+		];
+	    addPayment($data);
+	    foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    	}
+	    $where=array(
+	    	"uid"=>$cid
+	    );
+	    $md->dlt($con,"cart",$where);
+	}
 ?>
