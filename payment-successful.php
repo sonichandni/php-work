@@ -5,6 +5,7 @@
 <h1><font style="color: green;">Order Confirmed!</font></h1>
 <form method="post">
 <button class="logout-btn" type="button" onclick="printDiv()"><i class="fa fa-print"></i></button>
+<button type="submit" name="sent_email" class="logout-btn" ><i class="fa fa-envelope"></i></button>
 </form>
 <div id="invoice">
 <center><h1>Invoice</h1></center>

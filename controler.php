@@ -508,5 +508,40 @@
 	    $order_data=$md->join_con($con,"product","con_order","product.pid=con_order.pid",$where);
 		$_SESSION["order_data"]=$order_data;
 	}
-	
+	if(isset($_REQUEST["sent_email"]))
+	{
+		require './src/Exception.php';
+		require './src/PHPMailer.php';
+		require './src/SMTP.php';
+		require './vendor/autoload.php';
+		$mail = new PHPMailer\PHPMailer\PHPMailer();  
+		$mail->SMTPDebug = 0;                                 // Enable verbose debug output
+	    $mail->isSMTP();                                      // Set mailer to use SMTP
+	    $mail->Host = 'smtp.gmail.com;smtp.gmail.com';  	  // Specify main and backup 
+	    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+	    $mail->Username = 'soni.chandni.415@gmail.com';       // SMTP username
+	    $mail->Password = 'chandnisoni!1';                    // SMTP password
+	    $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+	    $mail->Port = 465;                                    // TCP port to connect to
+		$mail->setFrom('soni.chandni.415@gmail.com');
+	    $mail->addAddress('sonichandni279@gmail.com');        // Add a recipient
+	    $mail->addAttachment('in.pdf'); 
+	    $mail->isHTML(true);                                  // Set email format to HTML
+	    $mail->Subject = 'Invoice';
+	    $mail->Body    = 'Kindly find bellow attached invoice';
+	    $mail->send();
+		/*if($mail->send())
+	    {
+		    echo 'Message has been sent';
+	    }
+		else
+		{
+			echo "not sent";
+		}*/
+		/*$headers = 'From:soni.chandni.415@gmail.com' . "\r\n" .
+					'MIME-Version: 1.0' . "\r\n" .
+					'Content-Type: text/html; charset=utf-8';
+		$r = mail('sonichandni279@gmail.com','hi','sdfsdfsf', $headers);
+		var_dump($r);*/
+	}
 ?>
