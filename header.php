@@ -15,6 +15,18 @@
        return confirm("Are you sure you want to delete this?");
     }
   </script>
+  <script type="text/javascript">
+    function printDiv(invoice) {
+       var printContents = document.getElementById('invoice').innerHTML;
+       var originalContents = document.body.innerHTML;
+
+       document.body.innerHTML = printContents;
+
+       window.print();
+
+       document.body.innerHTML = originalContents;
+    }
+</script>
 </head>
 <body>
 <form method="post" role="form"  enctype="multipart/form-data" >

@@ -456,8 +456,8 @@
 		$enableSandbox = true;
 		$paypalConfig = [
 	    	'email' => $_POST['payer_email'],
-		    'return_url' => 'http://localhost/first2/payment-successful.php',
-		    'cancel_url' => 'http://localhost/first2/payment-cancelled.php',
+		    'return_url' => 'http://localhost/first/payment-successful.php',
+		    'cancel_url' => 'http://localhost/first/payment-cancelled.php',
 		    'notify_url' => 'payment.php'
 		];
 		$paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
@@ -481,20 +481,32 @@
 		    'payment_amount' => $_POST['payment_amount'],
 		    'add' => $_POST['add']
 		];
-	    $data=array(
-	    	"pid"=>$data['item_name'],
-	    	"payment_amount"=>$data['payment_amount'],
-	    	"uid"=>$data['add'],
-	    	"createdtime"=>date('Y-m-d H:i:s')
-	    );
-	    $md->insert($con,$data,"con_order");
-	    foreach ($_SESSION["logged"] as $k)
+		foreach ($_SESSION["logged"] as $k)
 		{
     		$cid=$k->uid;
     	}
+		foreach($_SESSION["cart_data"] as $v)
+		{
+		    $data=array(
+		    	"pid"=>$v->pid,
+		    	"payment_amount"=>$data['payment_amount'],
+		    	"uid"=>$cid,
+		    	"createdtime"=>date('Y-m-d H:i:s')
+		    );
+		    $_SESSION["cur_cust_order_time"]=$data["createdtime"];
+		    $md->insert($con,$data,"con_order");
+		}
+		
 	    $where=array(
 	    	"uid"=>$cid
 	    );
 	    $md->dlt($con,"cart",$where);
+	    $where=array(
+	    	"uid"=>$cid,
+	    	"createdtime"=>$_SESSION["cur_cust_order_time"]
+	    );
+	    $order_data=$md->join_con($con,"product","con_order","product.pid=con_order.pid",$where);
+		$_SESSION["order_data"]=$order_data;
 	}
+	
 ?>
