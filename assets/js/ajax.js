@@ -79,4 +79,8 @@ $(document).ready(function(){
               $("#div_netb").hide();
             }
       });
+      $('.flexslider').flexslider({
+        animation: 'fade',
+        controlsContainer: '.flexslider'
+      });
     });

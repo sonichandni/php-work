@@ -232,26 +232,45 @@
 		$price=$_REQUEST["price"];
 		$pdisc = $_REQUEST["pdisc"];
 		$pimg=$_FILES["pimg"]["name"];
-		if($pnm!='' && $price!='' && $pdisc!='' && $pimg!=''){
-		$filename1=explode(".",$pimg);
-	    $ext= end($filename1);
-	    $php_path= $_FILES["pimg"]["tmp_name"];
-	    $path= "prod_images/$pimg";
-	    if($ext=='jpg' || $ext=='jpeg' || $ext=='png')
+		$extension=array("jpeg","jpg","png");
+		foreach($_FILES["pimg"]["name"] as $key=>$v)
 		{
-	        move_uploaded_file($php_path,$path);
-	        $stu = array(
-	           	"pname"=>$pnm,
-	           	"pimg"=>$pimg,
+			$file_name=$_FILES["pimg"]["name"][$key];
+		    $file_tmp=$_FILES["pimg"]["tmp_name"][$key];
+            $ext=pathinfo($file_name,PATHINFO_EXTENSION);
+			$ext=pathinfo($file_name,PATHINFO_EXTENSION);
+			if(in_array($ext,$extension))
+            {
+                if(!file_exists("prod_images/".$file_name))
+                {
+                   move_uploaded_file($file_tmp=$_FILES["pimg"]["tmp_name"][$key],"prod_images/".$file_name);
+                }
+                else
+                {
+                    $filename=basename($file_name,$ext);
+                    $newFileName=$filename.time().".".$ext;
+                    move_uploaded_file($file_tmp=$_FILES["pimg"]["tmp_name"][$key],"prod_images/".$newFileName);
+                }
+            }
+         	else
+			{
+				echo "<script>alert('invalid file..try again');</script>";
+			}
+		}
+		$pim=implode(",", $pimg);
+		$stu = array(
+	        	"pname"=>$pnm,
+	           	"pimg"=>$pim,
 	           	"prod_disc"=>$pdisc,
 	           	"price"=>$price
-	        );
-	        $md->insert($con,$stu,"product");
-	    }
-		else
-		{
-			echo "<script>alert('invalid file..try again');</script>";
-		}}
+	    );
+	    $md->insert($con,$stu,"product");
+	 //    }
+		// else
+		// {
+		// 	echo "<script>alert('invalid file..try again');</script>";
+		// }
+		
 	}
 	if (isset($_REQUEST["pid"]))
 	{
@@ -510,6 +529,16 @@
 	}
 	if(isset($_REQUEST["sent_email"]))
 	{
+		$tempPDF = tempnam( '/tmp', 'generated-invoice' );
+		$url = 'payment-successful.php';
+
+		exec( "wkhtmltopdf  $url  $tempPDF" );
+
+		header('Content-Type: application/pdf');
+		header('Content-Disposition: attachment; filename=invoice.pdf');
+
+		echo file_get_contents( $tempPDF );
+		//unlink( $tempPDF );
 		require './src/Exception.php';
 		require './src/PHPMailer.php';
 		require './src/SMTP.php';
@@ -525,7 +554,7 @@
 	    $mail->Port = 465;                                    // TCP port to connect to
 		$mail->setFrom('soni.chandni.415@gmail.com');
 	    $mail->addAddress('sonichandni279@gmail.com');        // Add a recipient
-	    $mail->addAttachment('in.pdf'); 
+	    $mail->addAttachment('/tmp/Invoice.pdf'); 
 	    $mail->isHTML(true);                                  // Set email format to HTML
 	    $mail->Subject = 'Invoice';
 	    $mail->Body    = 'Kindly find bellow attached invoice';

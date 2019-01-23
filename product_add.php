@@ -7,7 +7,7 @@
   <input type="text"  id="pnm" name="pnm" placeholder="Product Name" autofocus />
   <input type="text" name="price" id="price" placeholder="Product Price">
   <textarea name="pdisc" id="pdisc" placeholder="Product Discription"></textarea>
-  <input type="file" class="form-control-file" id="pimg" name="pimg" aria-describedby="fileHelp">
+  <input type="file" class="form-control-file" id="pimg" name="pimg[]" aria-describedby="fileHelp" multiple>
   <center><button type="submit" id="add_product_db" name="add_product_db">Add Product </button><br><br></center>
 </form>
 <?php

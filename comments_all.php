@@ -10,7 +10,19 @@
 	<div style="width: 80%">
 
 		<div style="width: 20%;float: left;">
-			<?php echo '<img src = "./prod_images/'.$pdata->pimg.'" class = "prod-img" >'; ?>
+			<!-- <?php echo '<img src = "./prod_images/'.$pdata->pimg.'" class = "prod-img" >'; ?> -->
+			<div  class="flexslider">
+	        <?php $pr = explode(",", $pdata->pimg); 
+	        ?>
+			<ul class="slides">
+          <?php
+          foreach($pr as $p){?>
+           <li>
+            <?php echo '<img src = "./prod_images/'.$p.'" class = "prod-img" >';?>
+           </li>
+          <?php } ?>
+          </ul>
+      </div>
 		</div>
 		
 		<i class="fa fa-heart" id="wishlist" <?php 
@@ -31,6 +43,7 @@
 			</p>
 		</div>
 	</div>
+	
 	<div>
 		<textarea name="com" id="com" rows="1" cols="60" placeholder="Comment Here..." style="opacity: 0.5;color: black;border: 2px solid black;"></textarea><br>
 		<center><button type="submit" id="add_comment" name="add_comment" style="width: 100px;font-size: 15px;">Comment </button></center>

@@ -12,12 +12,21 @@
     {
       foreach ($pdata as $v) {
       ?>
-      <td><center>
+      <td><div  class="flexslider"><center>
+        <?php $pr = explode(",", $v["pimg"]); 
+        ?>
         <a href="comments_all.php?comments_view=<?php echo $v['pid']; ?>">
-          <?php echo '<img src = "./prod_images/'.$v["pimg"].'" class = "prod-img" >'; ?>
+          <ul class="slides">
+          <?php
+          foreach($pr as $p){?>
+           <li>
+            <?php echo '<img src = "./prod_images/'.$p.'" class = "prod-img" >';?>&nbsp;
+           </li>
+          <?php } ?>
+          </ul>
         </a>
         
-      </center></td>
+      </center></div></td>
     <?php } }?>
   </tr>
 </table>
