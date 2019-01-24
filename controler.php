@@ -118,9 +118,10 @@
 			$res=$md->select_where($con,"user",$where);
 			$_SESSION["logged"]=$res;
 			//print_r($res);exit;
+			$r=$_SESSION["logged"][0];
 			if($res)
 			{
-				echo "success";
+				echo $r->role;
 			}
 			else
 			{
@@ -226,8 +227,14 @@
 	//------------------Edit users details end----------------
 
 	//------------------Product Department start--------------
+	//fatch category list
+	if(isset($_REQUEST["pro_add_cat"]))
+	{
+		$cat_data=$md->select($con,"prod_category");
+	}
 	if(isset($_REQUEST["add_product_db"]))
 	{
+		$cat=$_REQUEST["cat"];
 		$pnm = $_REQUEST["pnm"];
 		$price=$_REQUEST["price"];
 		$pdisc = $_REQUEST["pdisc"];
@@ -259,11 +266,13 @@
 		}
 		$pim=implode(",", $pimg);
 		$stu = array(
+				"pcid"=>$cat,
 	        	"pname"=>$pnm,
 	           	"pimg"=>$pim,
 	           	"prod_disc"=>$pdisc,
 	           	"price"=>$price
 	    );
+	    //print_r($stu);exit();
 	    $md->insert($con,$stu,"product");
 	 //    }
 		// else
@@ -271,6 +280,16 @@
 		// 	echo "<script>alert('invalid file..try again');</script>";
 		// }
 		
+	}
+	//view product category vise
+	if(isset($_REQUEST["product_list"]))
+	{
+		$pcid=$_REQUEST["product_list"];
+		$where=array(
+			"pcid"=>$pcid
+		);
+		$pdata=$md->select_where($con,"product",$where);
+		//print_r($pdata);exit();
 	}
 	if (isset($_REQUEST["pid"]))
 	{
@@ -297,7 +316,7 @@
 		$uid=$_REQUEST["uid"];
 		$com=$_REQUEST["com"];
 		if($com!=''){
-		$dt=date("Y-m-d h:i:sa");
+		$dt=date("Y-m-d h:i:s");
 		$stu=array(
 			"comm"=>$com,
 			"uid"=>$uid,
@@ -307,7 +326,7 @@
 		//print_r($stu);exit();
 		$md->insert($con,$stu,"comments");
 		}
-		header("location:comments_all.php?comments_view=$pid");
+		//header("location:comments_all.php?comments_view=$pid");
 	}
 	//view all comments
 	if(isset($_REQUEST["comments_view"]))
@@ -414,7 +433,7 @@
 		$_SESSION["cart_data"]=$cart_data;
 	}
 
-	//------------------Cart Management Start----------------------
+	//------------------Cart Management end----------------------
 	//Logout
 	if(isset($_REQUEST["logout"]))
 	{
@@ -425,6 +444,11 @@
 	if(isset($_REQUEST["home"]))
 	{
 		header("location:dashboard.php");
+	}
+	//redirect to home page of user i.e., dashboard
+	if(isset($_REQUEST["home_user"]))
+	{
+		header("location:dashboard_user.php");
 	}
 	//place order
 	if(isset($_REQUEST["place_order"]))
@@ -572,5 +596,27 @@
 					'Content-Type: text/html; charset=utf-8';
 		$r = mail('sonichandni279@gmail.com','hi','sdfsdfsf', $headers);
 		var_dump($r);*/
+	}
+	if(isset($_REQUEST["order_list"]))
+	{
+		foreach ($_SESSION["logged"] as $k)
+		{
+    		$cid=$k->uid;
+    		$role=$k->role;
+    	}
+    	if($role==1)
+    	{
+    		$od=$md->join_three($con,"product","con_order","user","product.pid=con_order.pid","user.uid=con_order.uid");
+    	}
+    	elseif($role==2)
+    	{
+    		$where=array(
+    			"con_order.uid"=>$cid
+    		);
+    		$od=$md->join_three_con($con,"product","con_order","user","product.pid=con_order.pid","user.uid=con_order.uid",$where);
+    		//print_r($od);exit();
+    	}
+    	
+    	
 	}
 ?>

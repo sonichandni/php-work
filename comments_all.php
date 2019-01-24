@@ -1,31 +1,14 @@
 <?php
-  include 'header.php';
+  include 'role.php';
   if(isset($_SESSION["logged"])){
 ?>
 <form name="product_det" id="product_det" method="POST">
-<div style="width: 950px; height: 450px;border: 4px solid black; margin-left: 20px;border-radius: 50px; padding: 20px;background: url('./user_images/s1.png');overflow: scroll; ">
-
+<div class="main-screen">
 	<input type="hidden" name="uid" id="uid" value="<?php echo $cid; ?>">
 	<input type="hidden" name="pid" id="pid" value="<?php echo $pid; ?>">
-	<div style="width: 80%">
-
-		<div style="width: 20%;float: left;">
-			<!-- <?php echo '<img src = "./prod_images/'.$pdata->pimg.'" class = "prod-img" >'; ?> -->
-			<div  class="flexslider">
-	        <?php $pr = explode(",", $pdata->pimg); 
-	        ?>
-			<ul class="slides">
-          <?php
-          foreach($pr as $p){?>
-           <li>
-            <?php echo '<img src = "./prod_images/'.$p.'" class = "prod-img" >';?>
-           </li>
-          <?php } ?>
-          </ul>
-      </div>
-		</div>
-		
-		<i class="fa fa-heart" id="wishlist" <?php 
+	<div style="width: 24%;float: left;">
+		<div  class="flexslider">
+			<i class="fa fa-heart" id="wishlist" <?php 
 				if(isset($wdata))
 				{
 					echo "style='color:red;'";
@@ -34,33 +17,52 @@
 				{
 					echo "style='color:lightgrey;'";
 				}
-		 ?>" ></i>
-		 
-		<div style="width: 50%;float: right;">
+		 		?>" >
+		 	</i>
+		    <?php $pr = explode(",", $pdata->pimg); 
+		    ?>
+			<ul class="slides">
+	        <?php
+	     	 foreach($pr as $p){?>
+		        <li>
+		            <?php echo '<img src = "./prod_images/'.$p.'" class = "prod-img" >';?>
+		        </li>
+	         <?php } ?>
+	        </ul>
+      	</div>
+	</div>
+	<div style="margin-left: 30%;">
 			<p><?php echo $pdata->prod_disc; ?>
 				<br><p><b>Price:</b><?php echo $pdata->price; ?></p>
 				<center><button type="submit" name="buy_now" id="buy_now" class="buy-now">Buy Now</button></center>
 			</p>
+	</div>
+	<div>
+		<div style="width:90%;">
+			<textarea name="com" id="com" rows="1" cols="60" placeholder="Comment Here..." style="border: 1px solid grey;"></textarea>
+		</div>
+		<div style="margin-top: -55px;margin-right:40px;">
+			<i class="fa fa-send-o fa-3x" id="com-add"></i>
 		</div>
 	</div>
-	
-	<div>
-		<textarea name="com" id="com" rows="1" cols="60" placeholder="Comment Here..." style="opacity: 0.5;color: black;border: 2px solid black;"></textarea><br>
-		<center><button type="submit" id="add_comment" name="add_comment" style="width: 100px;font-size: 15px;">Comment </button></center>
-	</div>
-	<div style="height: 350px;width: 40%;overflow: scroll;">
-
+	<div class="pr-comments"><br><br><br>
 		<?php
-		 if(isset($com_data)){
-		 foreach ($com_data as $k) {
-		 ?>
-		 <div style="border-radius: 20px;padding-left: 15px;"><p>
-		<?php echo "<b>".$k->first_name." ".$k->last_name."</b><br><small>".$k->com_date_time."</small><br>".$k->comm; ?>
-		</p></div><?php }}
-		else { echo "No Comments yet..."; }?>
-
+		if(isset($com_data))
+		{
+			 foreach ($com_data as $k) {
+			 ?>
+				 <p>
+					<?php echo "<b>".$k->first_name." ".$k->last_name."</b><br><small>".$k->com_date_time."</small><br>".$k->comm; ?>
+				</p>
+			 <?php 
+			 }
+		}
+		else
+		{
+			echo "No Comments yet..."; 
+		}
+		?>
 	</div>
-	
 </div>
 </form>
 <?php

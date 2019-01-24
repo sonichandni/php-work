@@ -16,6 +16,15 @@ input {
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
+select {
+	padding:2%;
+	font-family:Georgia;
+	font-size:15px;
+	border: none;
+	width:96%;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
 textarea {
 	padding:2%;
 	font-family:Georgia;
@@ -68,6 +77,17 @@ div.center_area {
 	padding: 10px;
 	overflow: scroll;
 }
+div.center_area_user {
+	width: 100%;
+	height: 512px;
+	background: white;
+	margin-top: 5px;
+	margin-left: 0px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding: 10px;
+	overflow: scroll;
+}
 button.logout-btn {
 	width: 20px;
 	border-radius: 10px;
@@ -97,7 +117,10 @@ thead {
 	padding: 2%;
 	margin: auto;
 }
-
+.tr-user{
+	width: 500px;
+	font-size: 30px;
+}
 a {
    text-decoration: none;
    font-size: 20px;
@@ -106,6 +129,14 @@ a {
 }
 .fa-user {
     margin-right: 200px;
+}
+.dashbord-user-details {
+	margin-left:300px;
+	width:600px;
+	margin-top:-200px;
+}
+.dashbord-user-img {
+	width:250px;
 }
 .btn-circle-success {
 	border-radius:50px;
@@ -153,7 +184,23 @@ img {
     padding: 0%;
     width: 10%;
 }
-
+a.user-header {
+	color: white;
+}
+div.main-screen {
+	width: 950px;
+	height: 450px;
+	margin-left: 20px;
+	border-radius: 50px;
+	padding: 20px;
+	overflow: scroll;
+	float: left;
+}
+div.pr-comments {
+	height: 350px;
+	width: 40%;
+	overflow: scroll;
+}
 .container{
 width:200px;
 min-width: 200px;
@@ -181,6 +228,7 @@ text-align:center;
     padding: 10px;
     background: #ffffff;
     width: 200px;
+    border-radius: 50px;
 }
 .flexslider .slides > li {
     display: none;
@@ -193,7 +241,7 @@ text-align:center;
     display: block;
    -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
-    border-radius: 2px;
+    border-radius: 50px;
 }
 .slides:after {
     content: ".";
@@ -216,7 +264,7 @@ html[xmlns] .slides { display: block; }
     cursor: pointer;
     text-indent: -9999px;
     background-color: #ff6a00;
-    opacity: 0.3;
+    opacity: 0.1;
 	
 }
 .flex-direction-nav a:before {

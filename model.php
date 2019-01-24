@@ -128,5 +128,46 @@
             }
             
         }
+        function join_three($con,$tbl1,$tbl2,$tbl3,$str,$str2)
+        {
+            $q="select * from `$tbl2` JOIN `$tbl1` ON $str JOIN `$tbl3` ON $str2";
+            $al=$con->query($q);
+            //echo $q;exit;
+            if($al->num_rows!=0)
+            {
+                while($row=$al->fetch_object())
+                {
+                    $r[]=$row;
+                }
+                if(isset($r))
+                {
+                    return $r;
+                }
+            }
+            
+        }
+        function join_three_con($con,$tbl1,$tbl2,$tbl3,$str,$str2,$where)
+        {
+            $q="select * from `$tbl2` JOIN `$tbl1` ON $str JOIN `$tbl3` ON $str2 WHERE 1=1";
+            foreach($where as $k=>$v)
+            {
+                $q.=" and $k='$v'";
+            }
+            //echo $q;exit;
+            $al=$con->query($q);
+            //
+            if($al->num_rows!=0)
+            {
+                while($row=$al->fetch_object())
+                {
+                    $r[]=$row;
+                }
+                if(isset($r))
+                {
+                    return $r;
+                }
+            }
+            
+        }
     }
 ?>

@@ -83,4 +83,18 @@ $(document).ready(function(){
         animation: 'fade',
         controlsContainer: '.flexslider'
       });
+      $("#com-add").click(function(){
+         var com = $("#com").val();
+         var uid = $('#uid').val();
+         var pid = $('#pid').val();
+         $.ajax({
+            url: 'controler.php',
+            type: 'POST',
+            data: {add_comment:"add_comment",com: com,pid: pid,uid: uid},
+            success: function(response)
+            {
+              
+            }
+          }); 
+      });
     });

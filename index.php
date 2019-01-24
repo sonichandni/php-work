@@ -43,10 +43,14 @@
         success: function(response)
         {
           //alert(response);
-          if(response == "success")
+          if(response == 1) 
           {
             //alert(response);
             window.location.href = "dashboard.php";
+          }
+          else if(response == 2)
+          {
+            window.location.href = "dashboard_user.php";
           }
           else
           {

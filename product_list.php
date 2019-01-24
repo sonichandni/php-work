@@ -1,21 +1,18 @@
 <?php
-  include 'header.php';
+  include 'role.php';
   if(isset($_SESSION["logged"])){
 ?>
 <table>
   <tr>
     <?php
-    $pd=new getData();
-    $pdata=$pd->getAllProducts();
-    //echo "&nbsp;Click on product to comment...";
     if(isset($pdata))
     {
       foreach ($pdata as $v) {
       ?>
       <td><div  class="flexslider"><center>
-        <?php $pr = explode(",", $v["pimg"]); 
+        <?php $pr = explode(",", $v->pimg); 
         ?>
-        <a href="comments_all.php?comments_view=<?php echo $v['pid']; ?>">
+        <a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
           <ul class="slides">
           <?php
           foreach($pr as $p){?>
@@ -24,9 +21,8 @@
            </li>
           <?php } ?>
           </ul>
-        </a>
-        
-      </center></div></td>
+        </a>        
+      </center></div><center><b><?php echo $v->price;?> &#8377;</b></center></td>
     <?php } }?>
   </tr>
 </table>

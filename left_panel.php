@@ -11,9 +11,10 @@ foreach($_SESSION["logged"] as $v)
 <div id="product"><a>Product</a></div>
 <div id="p_menu" style="display: none;">
 	<ul>
-		<li><a href="product_add.php">Add Product</a></li>
-		<li><a href="product_list.php">View Products</a></li>
+		<li><a href="product_add.php?pro_add_cat=1">Add Product</a></li>
+		<li><a href="category_list.php?pro_add_cat=1">View Products</a></li>
 	</ul>
 </div>
 <br>
-<a href="wishlist.php?wishlist='1'">Wishlist</a><br><br>
+<a href="wishlist.php?wishlist=1">Wishlist</a><br><br>
+<a href="order_list.php?order_list=1">Orders</a><br><br>

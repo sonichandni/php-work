@@ -32,12 +32,14 @@
     <b><?php foreach ($_SESSION["logged"] as $v) {
       echo "Hi, ".$v->first_name." ".$v->last_name;
     } ?></b>
+    <a href="user_profile.php" class="user-header">My Profile</a>
+    <a href="product_list.php" class="user-header">View Products</a>
+    <a href="wishlist.php?wishlist=1" class="user-header">Wishlist</a>
+    <a href="order_list.php?order_list=1" class="user-header">My Orders</a>
     <button type="submit" name="logout" id="logout" class="logout-btn"><i class="fa fa-power-off"></i></button>
     <button type="submit" name="cart" id="cart" class="logout-btn"><i class="fa fa-cart-plus"></i></button>
-    <button type="submit" name="home" id="home" class="logout-btn"><i class="fa fa-home"></i></button>
+    <button type="submit" name="home_user" id="home_user" class="logout-btn"><i class="fa fa-home"></i></button>
   </div>
 </form>
-  <div class="left-panel">
-    <?php include "left_panel.php" ?>
-  </div>
-  <div class="center_area">
+  
+  <div class="center_area_user">

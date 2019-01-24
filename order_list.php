@@ -2,12 +2,13 @@
 	include 'role.php';
 	if(isset($_SESSION["logged"])){
 ?>
-<h2>Whishlist</h2>
+<h2>Orders</h2>
 <table>
+	
 	<?php
-		if(isset($wd))
+		if(isset($od))
 		{
-			foreach($wd as $v)
+			foreach($od as $v)
 			{
 			?>
 			<tr>
@@ -22,7 +23,7 @@
 		          <?php
 		          foreach($pr as $p){?>
 		           <li>
-		            <?php echo '<img src = "./prod_images/'.$p.'" class = "prod-img" >';?>
+		            <?php echo '<img src = "./prod_images/'.$p.'" style="width:100px;height:150px;" >';?>
 		           </li>
 		          <?php } ?>
 		          </ul>
@@ -33,13 +34,31 @@
 						echo $v->pname;
 					?>
 				</a></td>
+				<td><b>
+					<?php
+						echo $v->payment_amount;
+					?>
+				</b></td>
+				<td class="user_list-tbl">Delivered To:<br>
+					<?php
+						echo $v->first_name." ".$v->last_name."\n";
+						echo $v->email;
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><b>Order On:</b>
+					<?php
+						echo $v->createdtime;
+					?>
+				</td>
 			</tr>
 			<?php
 			}
 		}
 		else
 		{
-			echo "No Products are added to wishlist";
+			echo "You have not ordered anything";
 		}
 	?>
 </table>
