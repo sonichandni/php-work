@@ -1,3 +1,10 @@
+function deletecomment(e){
+        var pcid = $(e).attr('cat_val');
+         $("#filter-tble").load("controler.php",{
+            low_to_high:"low_to_high",pcid: pcid
+         });
+}
+
 $(document).ready(function(){
       $("#product").click(function(){
         $("#p_menu").slideToggle("slow");
@@ -18,12 +25,12 @@ $(document).ready(function(){
               //alert(response);
               if(response == "success")
               {
-                wishlist.style.color = "red";
+                wishlist.style.color = "#0000ff";
               }
             }
           });
         }
-        else if(this.style.color = "red")
+        else if(this.style.color = "#0000ff")
         {
           var uid = $('#uid').val();
           var pid = $('#pid').val();
@@ -87,14 +94,46 @@ $(document).ready(function(){
          var com = $("#com").val();
          var uid = $('#uid').val();
          var pid = $('#pid').val();
+         $('#com').val('');
+         $("#comments-data").load("controler.php",{
+            add_comment:"add_comment",pid: pid, uid: uid,com: com
+         });
+      });
+      $(".del_com_one").on("click",function(){
+
+         var pid = $(this).attr('pid_val');
+         var uid = $(this).attr('uid_val');
+         var dt_time = $(this).attr('time_val');
+         var cid = $(this).attr('cid_val');
          $.ajax({
-            url: 'controler.php',
+           url: 'controler.php',
             type: 'POST',
-            data: {add_comment:"add_comment",com: com,pid: pid,uid: uid},
+            data: {del_com_one:"del_com_one",pid: pid, uid: uid,dt_time: dt_time},
             success: function(response)
             {
-              
+              $("#"+cid).hide();
             }
-          }); 
+          });
+
       });
+      $(document).on("click","#low_to_high",function(){
+        var pcid = $(this).attr('cat_val');
+        $("#filter-tble").load("controler.php",{
+            low_to_high:"low_to_high",pcid: pcid
+         });
+      });
+      $(document).on("click","#high_to_low",function(){
+        var pcid = $(this).attr('cat_val');
+        $("#filter-tble").load("controler.php",{
+            high_to_low:"high_to_low",pcid: pcid
+         });
+      });
+       $(document).on("click","#newest_first",function(){
+        var pcid = $(this).attr('cat_val');
+        $("#filter-tble").load("controler.php",{
+            newest_first:"newest_first",pcid: pcid
+         });
+      });
+
+
     });

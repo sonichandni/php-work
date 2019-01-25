@@ -11,7 +11,7 @@
 			<i class="fa fa-heart" id="wishlist" <?php 
 				if(isset($wdata))
 				{
-					echo "style='color:red;'";
+					echo "style='color:#0000ff;'";
 				}
 				else
 				{
@@ -45,14 +45,22 @@
 			<i class="fa fa-send-o fa-3x" id="com-add"></i>
 		</div>
 	</div>
-	<div class="pr-comments"><br><br><br>
+	<div class="pr-comments" id="comments-data">
 		<?php
 		if(isset($com_data))
 		{
+			foreach($_SESSION["logged"] as $v)
+			{
+				$uid=$v->uid;
+			}
 			 foreach ($com_data as $k) {
 			 ?>
-				 <p>
-					<?php echo "<b>".$k->first_name." ".$k->last_name."</b><br><small>".$k->com_date_time."</small><br>".$k->comm; ?>
+				  <p id="<?php echo $k->cid; ?>">
+					<?php echo "<b>".$k->first_name." ".$k->last_name."</b><br><small>".$k->com_date_time."</small><br>".$k->comm; 
+						if($k->uid == $uid){
+					?>
+					<i class="fa fa-trash del_com_one" pid_val="<?php echo $k->pid; ?>" uid_val="<?php echo $k->uid; ?>" time_val="<?php echo $k->com_date_time; ?>" cid_val="<?php echo $k->cid; ?>"></i>
+					<?php } ?>
 				</p>
 			 <?php 
 			 }

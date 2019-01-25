@@ -325,6 +325,33 @@
 		);
 		//print_r($stu);exit();
 		$md->insert($con,$stu,"comments");
+		$where=array(
+			"pid"=>$pid
+		);
+		$str="comments.uid=user.uid";
+		$com_data=$md->join_con_order($con,"user","comments",$str,$where,"com_date_time");
+		if(isset($com_data))
+		{
+			foreach($_SESSION["logged"] as $v)
+			{
+				$uid=$v->uid;
+			}
+			 foreach ($com_data as $k) {
+			 ?>
+				  <p>
+					<?php echo "<b>".$k->first_name." ".$k->last_name."</b><br><small>".$k->com_date_time."</small><br>".$k->comm; 
+						if($k->uid == $uid){
+					?>
+					<i class="fa fa-trash del_com_one" pid_val="<?php echo $k->pid; ?>" uid_val="<?php echo $k->uid; ?>" time_val="<?php echo $k->com_date_time; ?>"></i>
+					<?php } ?>
+				</p>
+			 <?php 
+			 }
+		}
+		else
+		{
+			echo "No Comments yet..."; 
+		}
 		}
 		//header("location:comments_all.php?comments_view=$pid");
 	}
@@ -349,6 +376,89 @@
 		);
 		$wdata=$md->select_where($con,"wishlist",$where);
 		//print_r($wdata);exit;
+	}
+	//Delete comment
+	if(isset($_REQUEST["del_com_one"]))
+	{
+		//echo $_REQUEST["del_com_one"];exit();
+		$pid=$_REQUEST["pid"];
+		$uid=$_REQUEST["uid"];
+		$dt_time=$_REQUEST["dt_time"];
+		$where=array(
+			"uid"=>$uid,
+			"pid"=>$pid,
+			"com_date_time"=>$dt_time
+		);
+		$md->dlt($con,"comments",$where);		
+	}
+	//low to high product filter
+	if(isset($_REQUEST["low_to_high"]))
+	{
+		$pcid=$_REQUEST["pcid"];
+		$where=array(
+			"pcid"=>$pcid
+		);
+		$pdata=$md->select_where_order_ace($con,"product",$where,"price");
+		//echo "<pre>";print_r($pdata);exit();
+		if(isset($pdata))
+    	{
+	      foreach ($pdata as $v) {
+	      ?>
+	      <td><center>
+	        <?php $pr = explode(",", $v->pimg); 
+	        ?>
+	        <a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
+	            <?php echo '<img src = "http://localhost/first//prod_images/'.$pr[0].'" class = "prod-img" >';?>&nbsp;
+	        </a>        
+	      </center></div><center><b><?php echo $v->pname."<br>".$v->price;?> &#8377;</b></center></td>
+	    <?php } 
+	    }
+	}
+	//high to low product filter
+	if(isset($_REQUEST["high_to_low"]))
+	{
+		$pcid=$_REQUEST["pcid"];
+		$where=array(
+			"pcid"=>$pcid
+		);
+		$pdata=$md->select_where_order_dec($con,"product",$where,"price");
+		//echo "<pre>";print_r($pdata);exit();
+		if(isset($pdata))
+    	{
+	      foreach ($pdata as $v) {
+	      ?>
+	      <td><center>
+	        <?php $pr = explode(",", $v->pimg); 
+	        ?>
+	        <a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
+	            <?php echo '<img src = "http://localhost/first//prod_images/'.$pr[0].'" class = "prod-img" >';?>&nbsp;
+	        </a>        
+	      </center></div><center><b><?php echo $v->pname."<br>".$v->price;?> &#8377;</b></center></td>
+	    <?php } 
+	    }
+	}
+	//newest first product filter
+	if(isset($_REQUEST["newest_first"]))
+	{
+		$pcid=$_REQUEST["pcid"];
+		$where=array(
+			"pcid"=>$pcid
+		);
+		$pdata=$md->select_where_order_dec($con,"product",$where,"pid");
+		//echo "<pre>";print_r($pdata);exit();
+		if(isset($pdata))
+    	{
+	      foreach ($pdata as $v) {
+	      ?>
+	      <td><center>
+	        <?php $pr = explode(",", $v->pimg); 
+	        ?>
+	        <a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
+	            <?php echo '<img src = "http://localhost/first//prod_images/'.$pr[0].'" class = "prod-img" >';?>&nbsp;
+	        </a>        
+	      </center></div><center><b><?php echo $v->pname."<br>".$v->price;?> &#8377;</b></center></td>
+	    <?php } 
+	    }
 	}
 	//------------------Product Department end----------------
 

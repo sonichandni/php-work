@@ -30,7 +30,7 @@
 				</a></td>
 				<td><a href="comments_all.php?comments_view=<?php echo $v->pid; ?>">
 					<?php
-						echo $v->pname;
+						echo $v->pname."<br>".$v->price;
 					?>
 				</a></td>
 			</tr>

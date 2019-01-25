@@ -34,6 +34,42 @@
             if(isset($r))
                 return $r;
         }
+        function select_where_order_dec($con,$table,$where,$c)
+        {
+            $q="select * from $table where 1=1";
+            foreach($where as $k=>$v)
+            {
+                $q.=" and $k='$v'";
+            }
+             $q=$q." ORDER BY $c DESC";
+            //echo $q;exit;
+            $all1=$con->query($q);
+            
+            while($row=$all1->fetch_object())
+            {
+                $r[]=$row;
+            }
+            if(isset($r))
+                return $r;
+        }
+        function select_where_order_ace($con,$table,$where,$c)
+        {
+            $q="select * from $table where 1=1";
+            foreach($where as $k=>$v)
+            {
+                $q.=" and $k='$v'";
+            }
+             $q=$q." ORDER BY $c";
+            //echo $q;exit;
+            $all1=$con->query($q);
+            
+            while($row=$all1->fetch_object())
+            {
+                $r[]=$row;
+            }
+            if(isset($r))
+                return $r;
+        }
         function select($con,$table)
         {
             $q="select * from $table";

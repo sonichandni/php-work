@@ -33,7 +33,7 @@
       echo "Hi, ".$v->first_name." ".$v->last_name;
     } ?></b>
     <a href="user_profile.php" class="user-header">My Profile</a>
-    <a href="product_list.php" class="user-header">View Products</a>
+    <a href="category_list.php?pro_add_cat=1" class="user-header">View Products</a>
     <a href="wishlist.php?wishlist=1" class="user-header">Wishlist</a>
     <a href="order_list.php?order_list=1" class="user-header">My Orders</a>
     <button type="submit" name="logout" id="logout" class="logout-btn"><i class="fa fa-power-off"></i></button>

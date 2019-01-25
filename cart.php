@@ -41,7 +41,7 @@
             $sum=$sum+$v->price;
           ?>
         </a></td>
-        <td style="padding: 2%;width: 100px;"><i class="fa fa-trash del_prod_one" style="font-size: 36px;color: #999999;" id="delete_from_cart<?php echo $cnt; $cnt++; ?>" pidval="<?php echo $v->pid?>"></i></td>
+        <td style="padding: 2%;width: 100px;"><i class="fa fa-trash del_prod_one" style="font-size: 36px;color: #999999;" pidval="<?php echo $v->pid; ?>"></i></td>
       </tr>
 
       <?php
