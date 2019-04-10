@@ -683,11 +683,11 @@
 	    $mail->Host = 'smtp.gmail.com;smtp.gmail.com';  	  // Specify main and backup 
 	    $mail->SMTPAuth = true;                               // Enable SMTP authentication
 	    $mail->Username = 'soni.chandni.415@gmail.com';       // SMTP username
-	    $mail->Password = 'chandnisoni!1';                    // SMTP password
+	    $mail->Password = 'yourpassword';                    // SMTP password
 	    $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 	    $mail->Port = 465;                                    // TCP port to connect to
 		$mail->setFrom('soni.chandni.415@gmail.com');
-	    $mail->addAddress('sonichandni279@gmail.com');        // Add a recipient
+	    $mail->addAddress('to@gmail.com');                    // Add a recipient
 	    $mail->addAttachment('/tmp/Invoice.pdf'); 
 	    $mail->isHTML(true);                                  // Set email format to HTML
 	    $mail->Subject = 'Invoice';
